@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "EditPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ 
+
+<section class="panel panel-default" ng-app="EditPage" ng-controller="EditPageCtrl">
+    <header class="panel-heading">
+        编辑页面配置
+    </header>
+    <div class="row wrapper">
+        <div class="col-sm-5 m-b-xs">
+            <button class="btn btn-sm btn-default">添加</button>
+        </div>
+        <div class="col-sm-4 m-b-xs">
+            <div class="btn-group" data-toggle="buttons">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="input-group">
+                <input type="text" class="input-sm form-control" placeholder="Search">
+                <span class="input-group-btn">
+                    <button class="btn btn-sm btn-default" type="button">搜索</button>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+            <thead>
+                <tr>
+                    <th style="width:20px;"><label class="checkbox m-n i-checks"><input type="checkbox"><i></i></label></th>
+                    <th class="th-sortable" data-toggle="class">
+                        元素名称
+                        <span class="th-sort">
+                            <i class="fa fa-sort-down text"></i>
+                            <i class="fa fa-sort-up text-active"></i>
+                            <i class="fa fa-sort"></i>
+                        </span>
+                    </th>
+                    <th class="th-sortable"  data-toggle="class">
+                        元素值
+                        <span class="th-sort " >
+                            <i class="fa fa-sort-down text"></i>
+                            <i class="fa fa-sort-up text-active"></i>
+                            <i class="fa fa-sort"></i>
+                        </span>
+                    </th>
+                    <th>元素类型</th>
+                    <th>创建时间</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="x in listdata" >
+                    <td><label class="checkbox m-n i-checks"><input type="checkbox" name="ID" value="{{x.Id}}"><i></i></label></td>
+                    <td>{{x.YSName}}</td>
+                    <td>{{x.YSValue}}</td>
+                    <td>{{x.YSType}}</td>
+                    <td>{{x.CreateTime | jsondate:'yyyy-MM-dd hh:mm:ss'}}</td>
+                </tr>
+              
+            </tbody>
+        </table>
+    </div>
+    <footer class="panel-footer">
+        <div class="row">
+ 
+            <div class="col-sm-12 text-right text-center-xs">
+                <ul class="pagination pagination-sm m-t-none m-b-none">
+                    <li><a href="#"><i class="fa fa-chevron-left"></i></a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</section>
+
+ 
+
+<script src="~/Template/js/angular.js"></script>
+<script>
+
+    var app = angular.module('EditPage', []);
+    app.controller('EditPageCtrl', function ($scope, $http) {
+ 
+        $http({
+            method: 'POST',
+            url: '/SetPage/GetEditPageList'
+        }).then(function successCallback(response) {
+            
+            if (response.data.start == 0) {
+           
+                $scope.listdata = response.data.data;
+            } else {
+                alert(response.data.msg)
+            }
+
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+        });
+
+    });
+    app.filter('jsondate', function ($filter) { //可以注入依赖
+        return function (input, format) {
+
+            alert(input);
+
+            //先得到时间戳
+            var timestamp = Number(input.replace(/\/Date\((\d+)\)\//, "$1"));
+
+            //转成指定格式
+            return $filter("date")(timestamp, format);
+        
+
+        }
+    });
+
+ //.Where(T=>T.IsDeleted==false).
+
+</script>
