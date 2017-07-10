@@ -17,8 +17,8 @@ namespace Entity
         public string YSValue { get; set; }
 
 
-        [SugarColumn(IsNullable = false)]
-        public int YSType { get; set; }
+        [SugarColumn(IsNullable = false, Length = 30)]
+        public string YSType { get; set; }
 
  
 

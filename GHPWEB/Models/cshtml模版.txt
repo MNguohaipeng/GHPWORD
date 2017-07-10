@@ -1,0 +1,15 @@
+ 
+
+
+<section class="panel panel-default">
+  <header class="panel-heading font-bold">
+                  {0}
+                </header>
+
+<div class="panel-body">
+
+  <form class="form-horizontal" method="POST" id="{1}">        
+
+</form>
+</div>
+</section>

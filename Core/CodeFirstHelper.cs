@@ -53,7 +53,7 @@ namespace Core
             using (var db = LinkDBHelper.CreateDB())
                 try
                 {
-                 GeneratePage.Gpage();
+          
 
                     List<object> List = new List<object>();
 
@@ -69,7 +69,7 @@ namespace Core
                         
                         db.CodeFirst.InitTables(tp, typeof(B_CodeTable));
                     }
-
+                    GeneratePage.Gpage();
 
                     return true;
 
