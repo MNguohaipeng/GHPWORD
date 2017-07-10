@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Entity
 {
     public class Users:B_EntityBase
-    {
+    { 
         [SugarColumn(IsNullable = false, Length = 21)]
         public string LoginName { get; set; }
 
