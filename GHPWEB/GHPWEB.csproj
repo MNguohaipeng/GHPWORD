@@ -145,6 +145,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\SetPageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -160,6 +161,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Lib\MySql.Data.dll" />
     <Content Include="Lib\Newtonsoft.Json.dll" />
+    <Content Include="Models\Controller模板.txt" />
+    <Content Include="Models\cshtml模版.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -365,10 +368,10 @@
     <Content Include="Template\less\app.variables.less" />
     <Content Include="Template\less\app.widgets.less" />
     <Content Include="Views\SetPage\EditPage.cshtml" />
+    <Content Include="Views\Menu\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
