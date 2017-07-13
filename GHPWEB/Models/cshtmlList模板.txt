@@ -1,0 +1,20 @@
+﻿  
+
+<section class="panel panel-default">
+  <header class="panel-heading font-bold">
+                  {0}
+                </header>
+
+<div class="row wrapper">
+{1}
+</div>
+</section>
+<div class="table-responsive">
+<table id="table">
+</table>
+</div>
+
+<script>
+{2}
+</script>
+ 

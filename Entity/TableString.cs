@@ -37,5 +37,8 @@ namespace Entity
         public string OtherTableFieldZS { get; set; }//关联其他表的字段展示用  逗号分割 
         [SugarColumn(IsNullable = true, Length = 50)]
         public string OtherTableFieldBC { get; set; }//关联其他表的字段保存用
+
+        [SugarColumn(IsNullable = true, Length = 500)]
+        public string OtherTableWhere { get; set; }//关联其他表的查询条件
     }
 }

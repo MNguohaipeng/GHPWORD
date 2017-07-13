@@ -1,6 +1,10 @@
 ﻿ 
 {3}
 
+
+@Scripts.Render("~/bundles/Validata")
+
+
 <section class="panel panel-default">
   <header class="panel-heading font-bold">
                   {0}
@@ -10,9 +14,17 @@
 
   <form class="form-horizontal" method="POST" id="{1}">        
   {2}
+
+  <div class="text-center">
+  <button class="btn btn-s-md btn-default" type="submit">保存</button>
+    <button class="btn btn-s-md btn-default" >取消</button>
+  </div>
+
 </form>
 </div>
 </section>
 
-
+<script>
+{4}
+</script>
  

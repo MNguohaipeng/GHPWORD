@@ -14,6 +14,8 @@ namespace Core
 
         public static string ProjectFileUrl = ConfigurationManager.ConnectionStrings["ProjectFileUrl"].ToString();
 
+
+        //生成  视图和控制器
         public static void Gpage()
         {
             using (var db = LinkDBHelper.CreateDB())
@@ -34,83 +36,17 @@ namespace Core
                             Directory.CreateDirectory(ProjectFileUrl + data[i].ControllerUrl);
                         }
 
-                        string entityName = data[i].EntityName;
-
-                        #region 创建html
-                        using (StreamWriter sw = new StreamWriter(ProjectFileUrl + data[i].HtmlUrl + "/Add.cshtml", false, Encoding.UTF8))//创建文件
-                        {
+                        var TableString = db.Queryable<Entity.TableString>().Where(T => T.IsDeleted == false && T.TableName == data[i].EntityName).ToList();
 
 
-
-                            var TableString = db.Queryable<Entity.TableString>().Where(T => T.IsDeleted == false && T.TableName == entityName).ToList();
-
-                            if (TableString != null)
-                            {
-
-                                string input = "";
-
-
-                                foreach (var item in TableString)
-                                {
-                                    var one = db.Queryable<Entity.EditPage>().Where(T => T.IsDeleted == false && T.YSName == item.InputType).First();
-                                    if (one == null)
-                                    {
-                                        //throw new Exception("没有对应的数据类型");
-                                    }
-                                    else
-                                    {
-                                        input = string.Format(one.YSValue, item.FieldShowMing, item.FieldName);
-
-                                    }
-                                }
+                        //创建list
+                        ListHtml(TableString, data[i].EntityName, ProjectFileUrl + data[i].HtmlUrl);
+                        //创建Add
+                        AddHtml(TableString, data[i].EntityName, ProjectFileUrl + data[i].HtmlUrl, data[i].PageName);
+                        //创建Controller
+                        Controller(TableString, data[i].EntityName, ProjectFileUrl + data[i].ControllerUrl);
 
 
-                                //读取模板
-                                string cshtml = File.ReadAllText(ProjectFileUrl + @"\Models\cshtml模版.txt");
-
-                                string PageName = data[i].PageName;
-
-                                string title = "@{Layout = \"~/Views/Shared/_Layout.cshtml\";}";
-
-                                string AddHtml = string.Format(cshtml, PageName, entityName + "AddForm", input, title);
-
-                                byte[] bs = Encoding.UTF8.GetBytes(AddHtml);
-                                AddHtml = Encoding.UTF8.GetString(bs);
-
-                                sw.Write(AddHtml);
-
-
-                            }
-                        }
-                        #endregion
-
-
-                        #region 创建控制器
-                        using (StreamWriter zs = new StreamWriter(ProjectFileUrl + data[i].ControllerUrl + "/" + entityName + "Controller.cs", false, Encoding.UTF8))//创建文件
-                        {
-
-
-
-
-
-
-                            //读取模板
-                            //string controllertxt = string.Format(File.ReadAllText(ProjectFileUrl + @"\Models\Controller模板.txt", Encoding.UTF8), entityName);
-                            using (StreamReader sr = new StreamReader(ProjectFileUrl + @"\Models\Controller模板.txt"))
-                            {
-                                string msg=sr.ReadToEnd();
-                                msg=msg.Replace("{0}", entityName);
-                                zs.Write(msg);
-                            }
-
-
-
-
-
-
-                            #endregion
-
-                        }
                     }
 
                 }
@@ -119,11 +55,162 @@ namespace Core
                     throw;
                 }
 
-
         }
 
 
+ 
+
+        private static void ListHtml(List<Entity.TableString> TableString, string entityName, string HtmlUrl) {
+            try
+            {
+                #region 创建Listhtml
+                using (StreamWriter listhtml = new StreamWriter(ProjectFileUrl + HtmlUrl + "/List.cshtml", false, Encoding.UTF8))//创建文件
+                {
+                    string cshtml = File.ReadAllText(ProjectFileUrl + @"\Models\cshtmlList模板.txt");
+
+                    string ListhtmlString = string.Format(cshtml, entityName, "");
+
+                    listhtml.Write(ListhtmlString);
+                }
+                #endregion
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            string script = File.ReadAllText(ProjectFileUrl + @"\Models\TextFile1.txt");
+  
 
 
-    }
+        }
+
+        private static void AddHtml(List<Entity.TableString> TableString, string entityName, string HtmlUrl,string pageName) {
+            using (var db=LinkDBHelper.CreateDB())
+
+            using (StreamWriter sw = new StreamWriter(HtmlUrl + "/Add.cshtml", false, Encoding.UTF8))//创建文件
+            {
+
+                if (TableString != null)
+                {
+
+                    string input = "";
+
+                    foreach (var item in TableString)
+                    {
+                        var one = db.Queryable<Entity.EditPage>().Where(T => T.IsDeleted == false && T.YSName == item.InputType).First();
+                        if (one == null)
+                        {
+                            //throw new Exception("没有对应的数据类型");
+                        }
+                        else
+                        {
+
+                            switch (one.YSType)
+                            {
+                                case "6"://Select
+                                    if (item.IsOtherTable == false)
+                                        throw new Exception("生成下拉框必须要关联到其他表的数据");
+
+                                    //OtherTableWhere
+
+
+                                    string option = string.Format("<option value='0'>--请选择{0}--</option>", item.FieldShowMing);
+                                    string Bc = item.OtherTableFieldBC;
+                                    string Zs = item.OtherTableFieldZS;
+
+                                    var dt = db.Ado.GetDataTable(string.Format("select {0} as [Key],{1}  as [Value] from {2} {3}", Zs, Bc, item.OtherTableName, item.OtherTableWhere));
+                                    for (int a = 0; a < dt.Rows.Count; a++)
+                                    {
+                                        option += "<option value='" + dt.Rows[a]["Value"] + "'>" + dt.Rows[a]["Key"] + "</option>";
+                                    }
+                                    input += string.Format(one.YSValue, item.FieldShowMing, item.FieldName, option);
+
+                                    break;
+                                default:
+                                    input += string.Format(one.YSValue, item.FieldShowMing, item.FieldName);
+                                    break;
+
+                            }
+                        }
+                    }
+
+                    #region 创建script
+
+                    string Script = "";
+
+                    Script = "$('#" + TableString[0].TableName + "EditForm').validate({";
+
+                    Script += "rules: {";
+
+                    //Script
+                    foreach (Entity.TableString item in TableString)
+                    {
+
+                        //判断是否有表单验证 
+                        if (!string.IsNullOrEmpty(item.AddWhere))
+                        {
+
+                            Script += item.FieldName + ":{ \n";
+
+                            string[] AddWhere = item.AddWhere.Split(',');
+
+                            for (int s = 0; s < AddWhere.Length; s++)
+                            {
+
+                                Script += AddWhere[s] + ",\n";
+
+                            }
+
+                            Script = Script.TrimEnd(',');
+
+                            Script += "},\n";
+
+                        }
+
+                    }
+
+                    Script = Script.TrimEnd(',');
+
+                    Script += "}    });";
+
+                    #endregion
+
+                    //读取模板
+
+                    string cshtml = File.ReadAllText(ProjectFileUrl + @"\Models\cshtml模版.txt");
+
+                    string PageName = pageName;
+
+                    string title = "@{Layout = \"~/Views/Shared/_Layout.cshtml\";}";
+ 
+                    string AddHtml = string.Format(cshtml, PageName, entityName + "EditForm", input, title, Script);
+
+                    byte[] bs = Encoding.UTF8.GetBytes(AddHtml);
+
+                    AddHtml = Encoding.UTF8.GetString(bs);
+
+                    sw.Write(AddHtml);
+
+                }
+            }
+        }
+
+        private static void Controller(List<Entity.TableString> TableString, string entityName, string ControllerUrl)
+        {
+            using (StreamWriter zs = new StreamWriter(ControllerUrl + "/" + entityName + "Controller.cs", false, Encoding.UTF8))//创建文件
+            {
+
+                //读取模板
+                //string controllertxt = string.Format(File.ReadAllText(ProjectFileUrl + @"\Models\Controller模板.txt", Encoding.UTF8), entityName);
+                using (StreamReader sr = new StreamReader(ProjectFileUrl + @"\Models\Controller模板.txt"))
+                {
+                    string msg = sr.ReadToEnd();
+                    msg = msg.Replace("{0}", entityName);
+                    zs.Write(msg);
+                }
+
+            }
+        }
+        }
 }

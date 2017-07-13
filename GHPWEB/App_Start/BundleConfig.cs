@@ -29,11 +29,19 @@ namespace GHPWEB
                 "~/Template/js/jPlayer/add-on/jplayer.playlist.min.js",
                 "~/Template/js/jPlayer/demo.js" 
  ));
+
+            bundles.Add(new ScriptBundle("~/bundles/Validata").Include(
+              "~/Scripts/jquery-1.10.2.min.js",
+              "~/Template/js/jquery.validate.min.js",
+              "~/Template/js/messages_zh.js"
+       
+
+));
             #endregion
 
             #region CSS
- 
-      bundles.Add(new StyleBundle("~/Template/css").Include(
+
+            bundles.Add(new StyleBundle("~/Template/css").Include(
    
           "~/Template/js/jPlayer/jplayer.flat.css",
           "~/Template/css/bootstrap.css",

@@ -163,6 +163,8 @@
     <Content Include="Lib\Newtonsoft.Json.dll" />
     <Content Include="Models\Controller模板.txt" />
     <Content Include="Models\cshtml模版.txt" />
+    <Content Include="Models\cshtmlList模板.txt" />
+    <Content Include="Models\TextFile1.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -292,6 +294,7 @@
     <Content Include="Template\js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Template\js\jquery.min.js" />
     <Content Include="Template\js\jquery.ui.touch-punch.min.js" />
+    <Content Include="Template\js\jquery.validate.min.js" />
     <Content Include="Template\js\jvectormap\demo.js" />
     <Content Include="Template\js\jvectormap\jquery-jvectormap-1.2.2.css" />
     <Content Include="Template\js\jvectormap\jquery-jvectormap-1.2.2.min.js" />
@@ -306,6 +309,7 @@
     <Content Include="Template\js\markdown\epiceditor.min.js" />
     <Content Include="Template\js\masonry\demo.js" />
     <Content Include="Template\js\masonry\tiles.min.js" />
+    <Content Include="Template\js\messages_zh.js" />
     <Content Include="Template\js\nestable\demo.js" />
     <Content Include="Template\js\nestable\jquery.nestable.js" />
     <Content Include="Template\js\nestable\nestable.css" />
@@ -369,6 +373,7 @@
     <Content Include="Template\less\app.widgets.less" />
     <Content Include="Views\SetPage\EditPage.cshtml" />
     <Content Include="Views\Menu\Add.cshtml" />
+    <Content Include="Views\Menu\Listhtml.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -389,6 +394,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{b6ff7510-6585-428c-9228-83871f3365a4}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{4a6dbc6d-21d1-46b6-8558-5d3d0e8c2fb7}</Project>
       <Name>Core</Name>
