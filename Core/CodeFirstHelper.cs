@@ -69,7 +69,7 @@ namespace Core
                         
                         db.CodeFirst.InitTables(tp, typeof(B_CodeTable));
                     }
-                    GeneratePage.Gpage();
+              //      GeneratePage.Gpage();
 
                     return true;
 

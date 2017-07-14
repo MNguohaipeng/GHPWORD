@@ -18,7 +18,13 @@ namespace GHPWEB.Controllers
             return View();
         }
 
-          [HttpPost]
+        public ActionResult List()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult Add(FormCollection fm) {
             using (var db=LinkDBHelper.CreateDB())
                 try
@@ -32,8 +38,6 @@ namespace GHPWEB.Controllers
  
                     object obj = new object();
 
-
-                    
                     //再用Type.GetProperties获得PropertyInfo[],然后就可以用foreach 遍历了
                     foreach (PropertyInfo pi in type.GetProperties())
                     {
@@ -68,8 +72,26 @@ namespace GHPWEB.Controllers
                  return Content(Common.Common.OutScript("Alert","保存成功","List"));
         }
 
+        [HttpPost]
+        public JsonResult List(int pageIndex,int pageSize)
+        {
+            using (var db = LinkDBHelper.CreateDB())
+                try
+                {
+                    int totalCount = 0;
+
+                    var page = db.Queryable<Menu>().OrderBy(it => it.Id).ToPageList(pageIndex, pageSize, ref totalCount);
+
+                    return Json(new { start = 0, data = page, totalCount = totalCount, msg = "" }, JsonRequestBehavior.DenyGet);
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
+
+        }
 
 
-      
     }
 }

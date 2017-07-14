@@ -1,13 +1,13 @@
-﻿    
+﻿
 @{
-Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
- 
+
 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
- 
+
 <script src="~/Template/js/bootstrap.js"></script>
- 
+
 <script src="~/Scripts/angular.js"></script>
 
 
@@ -15,43 +15,16 @@ Layout = "~/Views/Shared/_Layout.cshtml";
     <header class="panel-heading">
         Responsive Table
     </header>
-    <div class="row wrapper">
-        <div class="col-sm-5 m-b-xs">
-            <select class="input-sm form-control input-s-sm inline v-middle">
-                <option value="0">Bulk action</option>
-                <option value="1">Delete selected</option>
-                <option value="2">Bulk edit</option>
-                <option value="3">Export</option>
-            </select>
-            <button class="btn btn-sm btn-default">Apply</button>
-        </div>
-        <div class="col-sm-4 m-b-xs">
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-sm btn-default active">
-                    <input type="radio" name="options"> Day
-                </label>
-                <label class="btn btn-sm btn-default">
-                    <input type="radio" name="options"> Week
-                </label>
-                <label class="btn btn-sm btn-default">
-                    <input type="radio" name="options"> Month
-                </label>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="input-group">
-                <input type="text" class="input-sm form-control" placeholder="Search">
-                <span class="input-group-btn">
-                    <button class="btn btn-sm btn-default" type="button">Go!</button>
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="table-responsive">
-    
+    <div id="GHPTABLE">
+        <div class="ghptabletop">
 
-        <table id="table" class="table table-striped b-t b-light" ng-app="GHPAPP" ng-controller="GHPTable"></table>
 
+        </div>
+        <div class="table-responsive">
+
+            <table class="table table-striped b-t b-light" ng-app="GHPAPP" ng-controller="GHPTable"></table>
+
+        </div>
     </div>
     <footer class="panel-footer">
         <div class="row">
@@ -87,26 +60,44 @@ Layout = "~/Views/Shared/_Layout.cshtml";
     var tableoption = {
         thead: [{
             name: 'MenuName',
-            value:'MenuName',
+            value: 'MenuName',
             IsOrder: false//是否允许操作排序
         }, {
-                name: 'Level',
-                value: 'Level',
+            name: 'Level',
+            value: 'Level',
             IsOrder: false//是否允许操作排序
-            }
+        }
         ],
         pagesnum: 10,//每页数量
-        pageindex:1,//当前页数
+        pageindex: 1,//当前页数
         jsondataurl: "List",
         tableid: "table",
-        data:""
+        data: "",
+        issearch: true,
+        topbutton: [
+            {
+                name: "添加",
+                click: "click()",
+                class: "btn btn-sm btn-default",
+                type: ""
+            }, {
+                name: "修改",
+                click: "click()",
+                class: "btn btn-sm btn-default",
+                type: ""
+            },
+            {
+                name: "删除",
+                click: "click()",
+                class: "btn btn-sm btn-default",
+                type: ""
+            }
+        ]
 
     }
     LoadTable(tableoption);
 
 
- 
+
 
 </script>
-
- 

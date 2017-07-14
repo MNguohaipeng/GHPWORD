@@ -165,6 +165,8 @@
     <Content Include="Models\cshtml模版.txt" />
     <Content Include="Models\cshtmlList模板.txt" />
     <Content Include="Models\TextFile1.txt" />
+    <Content Include="Scripts\bootstrap-ghptable.js" />
+    <Content Include="Scripts\bootstrap-table.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -248,7 +250,7 @@
     <Content Include="Template\images\p7.jpg" />
     <Content Include="Template\images\p8.jpg" />
     <Content Include="Template\images\p9.jpg" />
-    <Content Include="Template\js\angular.js" />
+    <Content Include="Scripts\angular.js" />
     <Content Include="Template\js\app.js" />
     <Content Include="Template\js\app.plugin.js" />
     <Content Include="Template\js\bootstrap.js" />
@@ -373,7 +375,7 @@
     <Content Include="Template\less\app.widgets.less" />
     <Content Include="Views\SetPage\EditPage.cshtml" />
     <Content Include="Views\Menu\Add.cshtml" />
-    <Content Include="Views\Menu\Listhtml.cshtml" />
+    <Content Include="Views\Menu\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
