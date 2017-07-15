@@ -9,6 +9,11 @@ namespace Entity
 {
     public class B_EntityBase
     {
+        public B_EntityBase() {
+            IsDeleted = false;
+            CreateTime = DateTime.Now;
+        }
+
 
         [SugarColumn(IsPrimaryKey =true,IsIdentity =true)]//自增
         public int Id { get; set; }

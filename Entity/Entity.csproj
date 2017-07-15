@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Button.cs" />
     <Compile Include="B_CodeTable.cs" />
     <Compile Include="B_EntityBase.cs" />
     <Compile Include="EditPage.cs" />
+    <Compile Include="Function.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="PageUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -49,6 +49,7 @@
     <Compile Include="LinkDBHelper.cs" />
     <Compile Include="OperationDatabase\OperationDataBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuntimeAbnormal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Lib\MySql.Data.dll" />

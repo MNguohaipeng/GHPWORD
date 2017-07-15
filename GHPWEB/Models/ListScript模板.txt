@@ -1,0 +1,19 @@
+﻿ 
+ 
+
+ var tableoption = ^|
+        thead: [{0}],
+        pagesnum: 10,//每页数量
+        pageindex: 1,//当前页数
+        jsondataurl: "{1}",
+        tableid: "table",
+        data: "",
+        issearch: true,
+        topbutton: [{2}]
+    |^
+
+
+    LoadTable(tableoption);
+
+
+ 

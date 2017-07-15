@@ -1,9 +1,4 @@
-﻿
-@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
+﻿ 
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <script src="~/Template/js/bootstrap.js"></script>
@@ -12,20 +7,17 @@
 
 
 <section class="panel panel-default">
-    <header class="panel-heading">
-        Responsive Table
-    </header>
+  <header class="panel-heading font-bold">
+                  Menu
+  </header>
     <div id="GHPTABLE">
         <div class="ghptabletop">
-
-
         </div>
         <div class="table-responsive">
-
             <table class="table table-striped b-t b-light" ng-app="GHPAPP" ng-controller="GHPTable"></table>
-
         </div>
     </div>
+
     <footer class="panel-footer">
         <div class="row">
             <div class="col-sm-4 hidden-xs">
@@ -55,49 +47,26 @@
     </footer>
 </section>
 <script src="~/Scripts/bootstrap-ghptable.js"></script>
-<script>
 
-    var tableoption = {
-        thead: [{
-            name: 'MenuName',
-            value: 'MenuName',
-            IsOrder: false//是否允许操作排序
-        }, {
-            name: 'Level',
-            value: 'Level',
-            IsOrder: false//是否允许操作排序
-        }
-        ],
+
+<script>
+ 
+ 
+
+ var tableoption = {
+        thead: [{name:'菜单名称',value:'MenuName',IsOrder:false,},{name:'等级',value:'Level',IsOrder:false,},{name:'上级ID',value:'ParentID',IsOrder:false,},{name:'地址',value:'Url',IsOrder:false,},{name:'类型',value:'Type',IsOrder:false,},{name:'排序',value:'Order',IsOrder:false,}],
         pagesnum: 10,//每页数量
         pageindex: 1,//当前页数
         jsondataurl: "List",
         tableid: "table",
         data: "",
         issearch: true,
-        topbutton: [
-            {
-                name: "添加",
-                click: "click()",
-                class: "btn btn-sm btn-default",
-                type: ""
-            }, {
-                name: "修改",
-                click: "click()",
-                class: "btn btn-sm btn-default",
-                type: ""
-            },
-            {
-                name: "删除",
-                click: "click()",
-                class: "btn btn-sm btn-default",
-                type: ""
-            }
-        ]
-
+        topbutton: [{name:'添加',click:'location='Add'',class:'btn btn-sm btn-default',type:''},{name:'删除',click:'click()',class:'btn btn-sm btn-default',type:''},{name:'修改',click:'click()',class:'btn btn-sm btn-default',type:''}]
     }
+
+
     LoadTable(tableoption);
 
 
-
-
+ 
 </script>

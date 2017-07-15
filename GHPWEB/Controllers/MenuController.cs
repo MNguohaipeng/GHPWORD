@@ -44,14 +44,14 @@ namespace GHPWEB.Controllers
                      
                         string name = pi.Name;
                         if (name != "Id" && name != "IsDeleted" && name != "CreateTime") {
+
                             //object TypeIF = pi.GetValue(EditMenu, null);//用pi.GetValue获得值
+
                             if (!string.IsNullOrEmpty(fm[name]))
                             {
                     
-
-
-
                                 pi.SetValue(EditMenu, Common.Common.ConvertType(fm[name], pi.PropertyType));
+
                             }
 
                         }
@@ -61,7 +61,8 @@ namespace GHPWEB.Controllers
                     EditMenu.IsDeleted = false;
                     EditMenu.CreateTime = DateTime.Now;
 
-                             var t2 = db.Insertable(EditMenu).ExecuteCommand();
+                    var t2 = db.Insertable(EditMenu).ExecuteCommand();
+
                 }
                 catch (Exception ex)
                 {

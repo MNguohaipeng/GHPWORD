@@ -32,9 +32,9 @@ namespace GHPWEB.Controllers
                     if (fm == null)
                         throw new Exception("编辑数据不能为空");
 
-                    Menu EditMenu = new Menu();
+                    {0} Edit{0} = new {0}();
 
-                    Type type = EditMenu.GetType();
+                    Type type = Edit{0}.GetType();
  
                     object obj = new object();
 
@@ -44,24 +44,25 @@ namespace GHPWEB.Controllers
                      
                         string name = pi.Name;
                         if (name != "Id" && name != "IsDeleted" && name != "CreateTime") {
-                            //object TypeIF = pi.GetValue(EditMenu, null);//用pi.GetValue获得值
+
+                            //object TypeIF = pi.GetValue(Edit{0}, null);//用pi.GetValue获得值
+
                             if (!string.IsNullOrEmpty(fm[name]))
                             {
                     
+                                pi.SetValue(Edit{0}, Common.Common.ConvertType(fm[name], pi.PropertyType));
 
-
-
-                                pi.SetValue(EditMenu, Common.Common.ConvertType(fm[name], pi.PropertyType));
                             }
 
                         }
 
                     }
 
-                    EditMenu.IsDeleted = false;
-                    EditMenu.CreateTime = DateTime.Now;
+                    Edit{0}.IsDeleted = false;
+                    Edit{0}.CreateTime = DateTime.Now;
 
-                             var t2 = db.Insertable(EditMenu).ExecuteCommand();
+                    var t2 = db.Insertable(Edit{0}).ExecuteCommand();
+
                 }
                 catch (Exception ex)
                 {
@@ -80,7 +81,7 @@ namespace GHPWEB.Controllers
                 {
                     int totalCount = 0;
 
-                    var page = db.Queryable<Menu>().OrderBy(it => it.Id).ToPageList(pageIndex, pageSize, ref totalCount);
+                    var page = db.Queryable<{0}>().OrderBy(it => it.Id).ToPageList(pageIndex, pageSize, ref totalCount);
 
                     return Json(new { start = 0, data = page, totalCount = totalCount, msg = "" }, JsonRequestBehavior.DenyGet);
                 }

@@ -19,6 +19,7 @@ namespace Entity
 
   public class TableString:B_EntityBase
     {
+
         [SugarColumn(Length = 50)]
         public string TableName { get; set; }
         [SugarColumn(Length = 50)]

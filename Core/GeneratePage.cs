@@ -36,8 +36,12 @@ namespace Core
                             Directory.CreateDirectory(ProjectFileUrl + data[i].ControllerUrl);
                         }
 
-                        var TableString = db.Queryable<Entity.TableString>().Where(T => T.IsDeleted == false && T.TableName == data[i].EntityName).ToList();
 
+                        string EntityName = data[i].EntityName;
+
+                        var xxx = db.Queryable<Entity.TableString>().Where(T => T.IsDeleted == false && T.TableName == EntityName).ToSql();
+
+                        List < Entity.TableString> TableString = db.Queryable<Entity.TableString>().Where(T => T.IsDeleted == false && T.TableName == EntityName).ToList();
 
                         //创建list
                         ListHtml(TableString, data[i].EntityName, ProjectFileUrl + data[i].HtmlUrl);
@@ -59,29 +63,70 @@ namespace Core
 
 
  
-
+        //加载list
         private static void ListHtml(List<Entity.TableString> TableString, string entityName, string HtmlUrl) {
-            try
-            {
-                #region 创建Listhtml
-                using (StreamWriter listhtml = new StreamWriter(ProjectFileUrl + HtmlUrl + "/List.cshtml", false, Encoding.UTF8))//创建文件
+            using (var db = LinkDBHelper.CreateDB())
+                try
                 {
-                    string cshtml = File.ReadAllText(ProjectFileUrl + @"\Models\cshtmlList模板.txt");
+                    #region 创建Listhtml
+                    using (StreamWriter listhtml = new StreamWriter( HtmlUrl + @"\List.cshtml", false, Encoding.UTF8))//创建文件
+                    {
+                        string cshtml = File.ReadAllText(ProjectFileUrl + @"\Models\cshtmlList模板.txt");
 
-                    string ListhtmlString = string.Format(cshtml, entityName, "");
+                        string scriptCode = File.ReadAllText(ProjectFileUrl + @"\Models\ListScript模板.txt");
+                        string thead = "";
+                        foreach (var item in TableString)
+                        {
+                            thead += "{";
+                            thead += "name:'" + item.FieldShowMing+"',";
+                            thead += "value:'" + item.FieldName + "',";
+                            thead += "IsOrder:false" + ",";
+                            thead += "},";
+                        }
+                        thead = thead.TrimEnd(',');
 
-                    listhtml.Write(ListhtmlString);
+                        int[] ButtonIdList = new int[3] { 1, 4, 3 };  //TODO
+
+                        string button = "";
+
+                        for (int i = 0; i < ButtonIdList.Length; i++)
+                        {
+
+                            var item = db.Ado.GetDataTable("select * from Button where Id=" + ButtonIdList[i]);
+
+                            if (item.Rows.Count <= 0) {
+                                throw new RuntimeAbnormal("没有查询到对应的按钮信息");
+                            } else if (item.Rows.Count > 1) {
+                                throw new RuntimeAbnormal("查询到多个按钮信息");
+                            }
+
+                            button += "{";
+                            button += "name:'" + item.Rows[0]["ButtonName"] + "',";
+                            button += "click:'" + item.Rows[0]["Click"] + "',";
+                            button += "class:'"+ item.Rows[0]["Class"] + "',";
+                            button += "type:'" + item.Rows[0]["Type"] + "'";
+                            button += "},";
+
+                        }
+                        button = button.TrimEnd(',');
+
+                        scriptCode = string.Format(scriptCode, thead, "List", button);
+                        scriptCode = scriptCode.Replace("^|", "{");
+                        scriptCode = scriptCode.Replace("|^", "}");
+                        string ListhtmlString = string.Format(cshtml, entityName,scriptCode);
+
+                        listhtml.Write(ListhtmlString);
+                    }
+                    #endregion
                 }
-                #endregion
-            }
-            catch (Exception)
-            {
+                catch (RuntimeAbnormal ex) {
+                    throw;
+                }
+                catch (Exception ex)
+                {
 
-                throw;
-            }
-            string script = File.ReadAllText(ProjectFileUrl + @"\Models\TextFile1.txt");
-  
-
+                    throw;
+                }
 
         }
 

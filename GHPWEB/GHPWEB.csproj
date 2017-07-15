@@ -164,6 +164,7 @@
     <Content Include="Models\Controller模板.txt" />
     <Content Include="Models\cshtml模版.txt" />
     <Content Include="Models\cshtmlList模板.txt" />
+    <Content Include="Models\ListScript模板.txt" />
     <Content Include="Models\TextFile1.txt" />
     <Content Include="Scripts\bootstrap-ghptable.js" />
     <Content Include="Scripts\bootstrap-table.js" />
