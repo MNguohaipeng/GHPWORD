@@ -12,6 +12,9 @@ namespace Entity
         [SugarColumn(IsNullable = false, Length = 30)]
         public string MenuName { get; set; }
 
+        [SugarColumn(IsNullable = false, Length = 30)]
+        public string MenuTableName { get; set; }
+
         [SugarColumn(IsNullable = false)]
         public int Level { get; set; }
 
