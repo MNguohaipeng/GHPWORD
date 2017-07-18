@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SqlSugar;
-
+using System.Text.RegularExpressions;
 
 namespace Common
 {
@@ -55,13 +55,14 @@ namespace Common
                     break;
                 case "AlertJump"://弹出后跳转
                     Script += "<script>";
-                    Script += "alert('"+Message+"')";
+                    Script += "alert('"+Message+"');";
                     Script += "location='" + Url + "'";
                     Script += "</script>";
                     break;
-                case "":
+                case "AlertBack":
                     Script += "<script>";
-                    Script += "alert('" + Message + "')";
+                    Script += "alert('" + Message + "');";
+                    Script += "$('#back').click();";
                     Script += "</script>";
                     break;
                 default:
@@ -70,5 +71,31 @@ namespace Common
             return Script;
 
         }
+
+        public static int[] OutIntArreyForIds(string Ids) {
+
+            string DataStr = Ids.Replace("[", "");
+
+            DataStr = DataStr.Replace("]", "");
+            string[] IdArrey = DataStr.Split(',');
+            int[] IdsArrey = new int[IdArrey.Length];
+            //
+            Regex rx = new Regex("[0-9]{1,50}");
+
+
+            for (int i = 0; i < IdArrey.Length; i++)
+            {
+                int Bl;
+                string im = rx.Matches(IdArrey[i])[0].Value;
+
+                if (int.TryParse(im, out Bl)) {
+                    IdsArrey[i] = Bl;
+                }
+            }
+            return IdsArrey;
+        }
+
+ 
+
     }
 }

@@ -18,17 +18,7 @@ namespace GHPWEB.Controllers
                 {
 
                     CodeFirstHelper code = new CodeFirstHelper();
-                    Users us = new Users();
-                    us.LoginName = "1";
-                    us.Password = "2";
-                    us.Age = 1;
-                    us.RealName = "ceshi";
-                    us.Phone = "123";
-                    us.Email = "";
-                    us.Gender = "";
-                    us.CreateTime = DateTime.Now;
-                    db.Insertable(us).ExecuteCommand();
-                
+   
                 }
                 catch (Exception ex)
                 {

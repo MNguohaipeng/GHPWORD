@@ -84,33 +84,9 @@ namespace Core
                             thead += "},";
                         }
                         thead = thead.TrimEnd(',');
+ 
 
-                        int[] ButtonIdList = new int[3] { 1, 4, 3 };  //TODO
-
-                        string button = "";
-
-                        for (int i = 0; i < ButtonIdList.Length; i++)
-                        {
-
-                            var item = db.Ado.GetDataTable("select * from Button where Id=" + ButtonIdList[i]);
-
-                            if (item.Rows.Count <= 0) {
-                                throw new RuntimeAbnormal("没有查询到对应的按钮信息");
-                            } else if (item.Rows.Count > 1) {
-                                throw new RuntimeAbnormal("查询到多个按钮信息");
-                            }
-
-                            button += "{";
-                            button += "name:'" + item.Rows[0]["ButtonName"] + "',";
-                            button += "click:'" + item.Rows[0]["Click"] + "',";
-                            button += "class:'"+ item.Rows[0]["Class"] + "',";
-                            button += "type:'" + item.Rows[0]["Type"] + "'";
-                            button += "},";
-
-                        }
-                        button = button.TrimEnd(',');
-
-                        scriptCode = string.Format(scriptCode, thead, "List", button);
+                        scriptCode = string.Format(scriptCode, thead, entityName);
                         scriptCode = scriptCode.Replace("^|", "{");
                         scriptCode = scriptCode.Replace("|^", "}");
                         string ListhtmlString = string.Format(cshtml, entityName,scriptCode);

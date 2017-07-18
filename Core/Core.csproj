@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeFirstHelper.cs" />
+    <Compile Include="Encryption.cs" />
     <Compile Include="GeneratePage.cs" />
     <Compile Include="LinkDBHelper.cs" />
     <Compile Include="OperationDatabase\OperationDataBase.cs" />

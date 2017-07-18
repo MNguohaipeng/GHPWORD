@@ -1,94 +1,138 @@
-﻿ 
+﻿
 @{Layout = "~/Views/Shared/_Layout.cshtml";}
 
 
 @Scripts.Render("~/bundles/Validata")
 
+<script src="~/Scripts/angular.js"></script>
 
-<section class="panel panel-default">
-  <header class="panel-heading font-bold">
-                  Menu
-                </header>
+<section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
+    <header class="panel-heading font-bold">
+        Menu
+    </header>
 
-<div class="panel-body">
+    <div class="panel-body">
 
-  <form class="form-horizontal" method="POST" id="MenuEditForm">        
-  <div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">菜单名称</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='MenuName' class="form-control">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">等级</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Level' class="form-control">
-                   
-                      </div>
-                    </div>
- 
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">上级ID</label>
-                      <div class="col-sm-10">
-                        <select name="ParentID" class="form-control m-b">
-                        <option value='0'>--请选择上级ID--</option><option value='1'>1</option><option value='2'>测试菜单</option><option value='3'>测试菜单</option><option value='4'>测试</option>
-                        </select>
-                      </div>
-                    </div><div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">地址</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Url' class="form-control">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">类型</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Type' class="form-control">
-                   
-                      </div>
-                    </div>
+        <form class="form-horizontal" method="POST" id="MenuEditForm" action="Save">
+            <input type="hidden" name="Id" ng-model="UpdateData.Id" />
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">菜单名称</label>
+                <div class="col-sm-10">
+                    <input type="text" name='MenuName' class="form-control" ng-model="UpdateData.MenuName">
 
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">排序</label>
-                      <div class="col-sm-10">
-                        <input type="number" name='Order' class="form-control">
-                   
-                      </div>
-                    </div>
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">等级</label>
+                <div class="col-sm-10">
+                    <input type="text" name='Level' class="form-control"  ng-model="UpdateData.Level">
 
-  <div class="text-center">
-  <button class="btn btn-s-md btn-default" type="submit">保存</button>
-    <button class="btn btn-s-md btn-default" >取消</button>
-  </div>
+                </div>
+            </div>
 
-</form>
-</div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">上级ID</label>
+                <div class="col-sm-10">
+                    <select name="ParentID" class="form-control m-b"  ng-model="UpdateData.ParentID">
+                        <option value='0'>--请选择上级ID--</option>
+                        <option value='1'>1</option>
+                        <option value='2'>测试菜单</option>
+                        <option value='3'>测试菜单</option>
+                        <option value='4'>测试</option>
+                    </select>
+                </div>
+            </div><div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">地址</label>
+                <div class="col-sm-10">
+                    <input type="text" name='Url' class="form-control"  ng-model="UpdateData.Url">
+
+                </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">类型</label>
+                <div class="col-sm-10">
+                    <input type="text" name='Type' class="form-control"  ng-model="UpdateData.Type">
+
+                </div>
+            </div>
+
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">排序</label>
+                <div class="col-sm-10">
+                    <input type="number" name='Order' class="form-control"  ng-model="UpdateData.Order">
+
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-s-md btn-default" type="submit">保存</button>
+                <button class="btn btn-s-md btn-default" type="button" id="back" onclick="location ='List'">取消</button>
+            </div>
+
+        </form>
+    </div>
 </section>
 
 <script>
-$('#MenuEditForm').validate({rules: {MenuName:{ 
-required:true ,
-},
-Level:{ 
-required:true ,
-},
-Url:{ 
-required:true ,
-},
-Type:{ 
-required:true ,
-},
-Order:{ 
-required:true ,
-},
-}    });
+    $('#MenuEditForm').validate({
+        rules: {
+            MenuName: {
+                required: true,
+            },
+            Level: {
+                required: true,
+            },
+            Url: {
+                required: true,
+            },
+            Type: {
+                required: true,
+            },
+            Order: {
+                required: true,
+            },
+        }
+    });
+
+    var app = angular.module("GHPAPP", []);
+    app.controller("GHPCtrl", function ($scope, $location,$http) {
+
+
+        var Id = $location.url().split('#')[1].split("=")[1];
+
+
+        $scope.load = function () {
+            $http({
+                method: 'POST',
+                url: 'GetUpdateData',
+                data: { Id: Id }
+            }).then(function successCallback(response) {
+                if (response.data.start == 0) {
+                    $scope.UpdateData = response.data.data;
+                } else {
+                    alert($scope.UpdateData = response.data.msg);
+                }
+            }, function errorCallback(response) {
+                // 请求失败执行代码
+            });
+
+        }
+
+
+
+
+
+        if (Id != "") {
+            $scope.load();
+        }
+
+    })
+
+
 </script>
- 

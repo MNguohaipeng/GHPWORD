@@ -146,6 +146,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\SetPageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -205,6 +206,7 @@
     <Content Include="Template\images\a7.png" />
     <Content Include="Template\images\a8.png" />
     <Content Include="Template\images\a9.png" />
+    <Content Include="Template\images\Login_back01.jpeg" />
     <Content Include="Template\images\logo.png" />
     <Content Include="Template\images\m0.jpg" />
     <Content Include="Template\images\m1.jpg" />
@@ -378,6 +380,7 @@
     <Content Include="Views\SetPage\EditPage.cshtml" />
     <Content Include="Views\Menu\Add.cshtml" />
     <Content Include="Views\Menu\List.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
