@@ -15,11 +15,16 @@ namespace GHPWEB.Controllers
             return View();
         }
 
+        public ActionResult MenuButtonPage() {
+            return View();
+        }
+
         //编辑页面配置
         public ActionResult EditPage() {
             return View();
 
         }
+
         //获取 EditPage  数据列表
         public JsonResult GetEditPageList()
         {
@@ -39,5 +44,39 @@ namespace GHPWEB.Controllers
                 }
  
         }
+
+        //获取菜单
+        public JsonResult GetMenu() {
+            using (var db=LinkDBHelper.CreateDB())
+                try
+                {
+                    var data = db.Queryable<Entity.Menu>().Where(T => T.IsDeleted == false).ToList();
+
+                    return Json(new { start = 0, data = data }, JsonRequestBehavior.DenyGet);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
+        //获取按钮
+        public JsonResult GetButton()
+        {
+            using (var db = LinkDBHelper.CreateDB())
+                try
+                {
+                    var data = db.Queryable<Entity.Button>().Where(T => T.IsDeleted == false).ToList();
+
+                    return Json(new { start = 0, data = data }, JsonRequestBehavior.DenyGet);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
     }
 }

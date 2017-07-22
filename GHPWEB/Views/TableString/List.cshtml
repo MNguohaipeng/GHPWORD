@@ -12,7 +12,7 @@
 
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
   <header class="panel-heading font-bold">
-                  Menu
+                  TableString
   </header>
 
     <div id="GHPTABLE">
@@ -82,7 +82,7 @@
  
  
 	var tableoption = {
-        thead: [{name:'',value:'Id',IsChack:true,},{name:'菜单名称',value:'MenuName',IsOrder:false,},{name:'等级',value:'Level',IsOrder:false,},{name:'上级ID',value:'ParentID',IsOrder:false,},{name:'地址',value:'Url',IsOrder:false,},{name:'类型',value:'Type',IsOrder:false,},{name:'排序',value:'Order',IsOrder:false,}],
+        thead: [{name:'',value:'Id',IsChack:true,},{name:'字段名称',value:'FieldName',IsOrder:false,},{name:'字段显示名称',value:'FieldShowMing',IsOrder:false,},{name:'输入类型',value:'InputType',IsOrder:false,},{name:'表单验证',value:'AddWhere',IsOrder:false,},{name:'是否链接其他表',value:'IsOtherTable',IsOrder:false,},{name:'其他表名',value:'OtherTableName',IsOrder:false,},{name:'其他表字段 展示用',value:'OtherTableFieldZS',IsOrder:false,},{name:'其他表字段 保存用',value:'OtherTableFieldBC',IsOrder:false,},{name:'表明',value:'TableName',IsOrder:false,},{name:'其他表查询条件',value:'OtherTableWhere',IsOrder:false,}],
         tableid: "table"
     }
     var pages = 0;
@@ -118,7 +118,7 @@
             $http({
                 method: 'POST',
                 url: 'GetButton',
-                data: { MenuName: "Menu" }
+                data: { MenuName: "TableString" }
             }).then(function successCallback(response) {
                 if (response.data.start == 1) {
 

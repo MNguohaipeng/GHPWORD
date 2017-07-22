@@ -11,62 +11,93 @@
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
  
   <header class="panel-heading font-bold">
-                  Menu
+                  TableString
                 </header>
 
 <div class="panel-body">
  
-  <form class="form-horizontal" method="POST" action="Save" id="MenuEditForm">        
+  <form class="form-horizontal" method="POST" action="Save" id="TableStringEditForm">        
   <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">菜单名称</label>
+                      <label class="col-sm-2 control-label">字段名称</label>
                       <div class="col-sm-10">
-                        <input type="text" name='MenuName' class="form-control" ng-model="Update.MenuName">
+                        <input type="text" name='FieldName' class="form-control" ng-model="Update.FieldName">
                    
                       </div>
                     </div>
 <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">等级</label>
+                      <label class="col-sm-2 control-label">字段显示名称</label>
                       <div class="col-sm-10">
-                        <input type="text" name='Level' class="form-control" ng-model="Update.Level">
+                        <input type="text" name='FieldShowMing' class="form-control" ng-model="Update.FieldShowMing">
                    
                       </div>
                     </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>   
- <div class="form-group">
-                <label class="col-sm-2 control-label">上级ID</label>
-                <div class="col-sm-10">
-                    <input type="hidden" name="ParentID" ng-model="ParentID" />
-                    <select ng-options=" item.Id as item.MenuName for item  in  ParentIDData " ng-model="ParentID" class="form-control m-b"></select>
-                </div>
-            </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">输入类型</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='InputType' class="form-control" ng-model="Update.InputType">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">表单验证</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='AddWhere' class="form-control" ng-model="Update.AddWhere">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">是否链接其他表</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='IsOtherTable' class="form-control" ng-model="Update.IsOtherTable">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">其他表名</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='OtherTableName' class="form-control" ng-model="Update.OtherTableName">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">其他表字段 展示用</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='OtherTableFieldZS' class="form-control" ng-model="Update.OtherTableFieldZS">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">其他表字段 保存用</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='OtherTableFieldBC' class="form-control" ng-model="Update.OtherTableFieldBC">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">表明</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='TableName' class="form-control" ng-model="Update.TableName">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">其他表查询条件</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='OtherTableWhere' class="form-control" ng-model="Update.OtherTableWhere">
+                   
+                      </div>
+                    </div>
 
- <div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">地址</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Url' class="form-control" ng-model="Update.Url">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">类型</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Type' class="form-control" ng-model="Update.Type">
-                   
-                      </div>
-                    </div>
-
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">排序</label>
-                      <div class="col-sm-10">
-                        <input type="number" name='Order' class="form-control" ng-model="Update.Order">
-                   
-                      </div>
-                    </div>
 
   <div class="text-center">
   <button class="btn btn-s-md btn-default" type="submit">保存</button>
@@ -87,20 +118,23 @@
 </section>
 
 <script>
-$('#MenuEditForm').validate({rules: {MenuName:{ 
+$('#TableStringEditForm').validate({rules: {FieldName:{ 
 required:true ,
 },
-Level:{ 
+FieldShowMing:{ 
 required:true ,
 },
-Url:{ 
+InputType:{ 
 required:true ,
 },
-Type:{ 
+AddWhere:{ 
 required:true ,
 },
-Order:{ 
-required:true ,
+IsOtherTable:{ 
+required:true,
+},
+TableName:{ 
+required:true,
 },
 }   }); 
  
@@ -141,26 +175,6 @@ required:true ,
               $scope.loading = false;
 	
 	 
-$scope.GetSelectParentID = function () {
-            $http({
-                method: 'POST',
-                url: '/Home/GetSelectData',
-                data: { TableName: "Menu", Where: "", FildName: "Id,MenuName" }
-            }).then(function successCallback(response) {
-
-                if (response.data.start == 0) {
-
-                    $scope.ParentIDData = response.data.data;
-                } else {
-
-                }
-            }, function errorCallback(response) {
-                console.log(JSON.stringify(response))
-            });
-        }
- $scope.GetSelectParentID();
-
- 
 
         var Id = $location.url().split('#')[1].split("=")[1];
 
@@ -172,7 +186,7 @@ $scope.GetSelectParentID = function () {
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							       $scope.ParentID = $scope.Update.ParentID
+							
                 } else {
                     alert( response.data.msg);
                 }

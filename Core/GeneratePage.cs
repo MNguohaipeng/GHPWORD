@@ -72,9 +72,16 @@ namespace Core
                     using (StreamWriter listhtml = new StreamWriter( HtmlUrl + @"\List.cshtml", false, Encoding.UTF8))//创建文件
                     {
                         string cshtml = File.ReadAllText(ProjectFileUrl + @"\Models\cshtmlList模板.txt");
-
+                  
                         string scriptCode = File.ReadAllText(ProjectFileUrl + @"\Models\ListScript模板.txt");
                         string thead = "";
+
+                        thead += "{";
+                        thead += "name:'',";
+                        thead += "value:'Id',";
+                        thead += "IsChack:true,";
+                        thead += "},";
+
                         foreach (var item in TableString)
                         {
                             thead += "{";
@@ -90,7 +97,8 @@ namespace Core
                         scriptCode = scriptCode.Replace("^|", "{");
                         scriptCode = scriptCode.Replace("|^", "}");
                         string ListhtmlString = string.Format(cshtml, entityName,scriptCode);
-
+                        ListhtmlString = ListhtmlString.Replace("【", "{");
+                        ListhtmlString = ListhtmlString.Replace("】", "}");
                         listhtml.Write(ListhtmlString);
                     }
                     #endregion
@@ -117,6 +125,12 @@ namespace Core
 
                     string input = "";
 
+                    string Script = "";
+
+                    string Select="";
+
+                    string MrSelect = "";
+
                     foreach (var item in TableString)
                     {
                         var one = db.Queryable<Entity.EditPage>().Where(T => T.IsDeleted == false && T.YSName == item.InputType).First();
@@ -131,21 +145,14 @@ namespace Core
                             {
                                 case "6"://Select
                                     if (item.IsOtherTable == false)
-                                        throw new Exception("生成下拉框必须要关联到其他表的数据");
+                                        throw new Exception("生成下拉框必须要关联到表的数据");
 
-                                    //OtherTableWhere
+                                    input += string.Format(one.YSValue, item.FieldName, item.OtherTableFieldBC, item.OtherTableFieldZS,(item.FieldName + "Data"), item.FieldShowMing, item.FieldName);
+                                    string Ls= File.ReadAllText(ProjectFileUrl + @"\Models\angularGetSelectData方法模板.txt");
+                                    Select +=string.Format(Ls,"GetSelect"+ item.FieldName,item.OtherTableName,item.OtherTableWhere, (item.OtherTableFieldBC+","+ item.OtherTableFieldZS), (item.FieldName+"Data"));
 
-
-                                    string option = string.Format("<option value='0'>--请选择{0}--</option>", item.FieldShowMing);
-                                    string Bc = item.OtherTableFieldBC;
-                                    string Zs = item.OtherTableFieldZS;
-
-                                    var dt = db.Ado.GetDataTable(string.Format("select {0} as [Key],{1}  as [Value] from {2} {3}", Zs, Bc, item.OtherTableName, item.OtherTableWhere));
-                                    for (int a = 0; a < dt.Rows.Count; a++)
-                                    {
-                                        option += "<option value='" + dt.Rows[a]["Value"] + "'>" + dt.Rows[a]["Key"] + "</option>";
-                                    }
-                                    input += string.Format(one.YSValue, item.FieldShowMing, item.FieldName, option);
+                                    MrSelect += "       $scope."+ item.FieldName + " = $scope.Update."+ item.FieldName + "";
+                            
 
                                     break;
                                 default:
@@ -158,11 +165,11 @@ namespace Core
 
                     #region 创建script
 
-                    string Script = "";
+              
 
-                    Script = "$('#" + TableString[0].TableName + "EditForm').validate({";
+                    Script = "$('#" + TableString[0].TableName + "EditForm').validate(【";
 
-                    Script += "rules: {";
+                    Script += "rules: 【";
 
                     //Script
                     foreach (Entity.TableString item in TableString)
@@ -172,7 +179,7 @@ namespace Core
                         if (!string.IsNullOrEmpty(item.AddWhere))
                         {
 
-                            Script += item.FieldName + ":{ \n";
+                            Script += item.FieldName + ":【 \n";
 
                             string[] AddWhere = item.AddWhere.Split(',');
 
@@ -185,7 +192,7 @@ namespace Core
 
                             Script = Script.TrimEnd(',');
 
-                            Script += "},\n";
+                            Script += "】,\n";
 
                         }
 
@@ -193,7 +200,7 @@ namespace Core
 
                     Script = Script.TrimEnd(',');
 
-                    Script += "}    });";
+                    Script += "】   】);";
 
                     #endregion
 
@@ -202,14 +209,16 @@ namespace Core
                     string cshtml = File.ReadAllText(ProjectFileUrl + @"\Models\cshtml模版.txt");
 
                     string PageName = pageName;
-
-                    string title = "@{Layout = \"~/Views/Shared/_Layout.cshtml\";}";
  
-                    string AddHtml = string.Format(cshtml, PageName, entityName + "EditForm", input, title, Script);
+                    Script+= File.ReadAllText(ProjectFileUrl + @"\Models\angular模板[特殊表单元素].txt");
 
-                    byte[] bs = Encoding.UTF8.GetBytes(AddHtml);
+                    Script = string.Format(Script, Select, MrSelect);
 
-                    AddHtml = Encoding.UTF8.GetString(bs);
+                    string AddHtml = string.Format(cshtml, PageName, entityName + "EditForm", input, "", Script);
+ 
+                    AddHtml = AddHtml.Replace("【", "{");
+
+                    AddHtml = AddHtml.Replace("】", "}");
 
                     sw.Write(AddHtml);
 

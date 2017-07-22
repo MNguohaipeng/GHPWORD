@@ -1,0 +1,21 @@
+﻿
+$scope.{0} = function () 【
+            $http(【
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: 【 TableName: "{1}", Where: "{2}", FildName: "{3}" 】
+            】).then(function successCallback(response) 【
+
+                if (response.data.start == 0) 【
+
+                    $scope.{4} = response.data.data;
+                】 else 【
+
+                】
+            】, function errorCallback(response) 【
+                console.log(JSON.stringify(response))
+            】);
+        】
+ $scope.{0}();
+
+ 

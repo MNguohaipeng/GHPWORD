@@ -1,0 +1,66 @@
+﻿ 
+ 
+ 
+ 
+ 
+ var app = angular.module("GHPAPP", []);
+
+
+
+
+ app.module("GHPAPP", [])
+        .factory('httpInterceptor', ['$q', '$injector', function ($q, $injector) 【
+            var httpInterceptor = 【
+                'responseError': function (response)【
+                    $scope.loading = false;
+                    return $q.reject(response);
+                】,
+                'response': function (response) 【
+                    $scope.loading = false;
+                    return response;
+                】,
+                'request': function (config) 【
+                    $scope.loading = true;
+                    return config;
+                】,
+                'requestError': function (config) 【
+                    $scope.loading = false;
+                    return $q.reject(config);
+                】
+            】
+            return httpInterceptor;
+        】])
+
+
+
+    app.controller("GHPCtrl", function ($scope, $location,$http) 【
+              $scope.loading = false;
+	
+	 {0}
+
+        var Id = $location.url().split('#')[1].split("=")[1];
+
+        $scope.load = function () 【
+            $http(【
+                method: 'POST',
+                url: 'GetUpdateData',
+                data: 【 Id: Id 】
+           】).then(function successCallback(response) 【
+                if (response.data.start == 0) 【
+                    $scope.Update = response.data.data;
+							{1}
+                】 else 【
+                    alert( response.data.msg);
+                】
+            】, function errorCallback(response)【
+                // 请求失败执行代码
+           】);
+
+        】
+
+        if (Id != "") 【
+            $scope.load();
+			
+        】
+
+    】)

@@ -1,4 +1,8 @@
 ﻿ 
+ @【
+ Layout = "~/Views/Shared/_Layout_Body.cshtml";
+ 】
+
 <script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
 <script src="~/Template/js/bootstrap.js"></script>
@@ -24,7 +28,7 @@
             </div>
             <div class="col-sm-4 m-b-xs">
                 <div class="btn-group" data-toggle="buttons">
-                    <button ng-repeat="x in buttonlist" class="{{x.Class}}" style="display:inline" ng-click="fun(x.Click)">{{x.ButtonName}}</button>
+                    <button ng-repeat="x in buttonlist" class="【【x.Class】】" style="display:inline" ng-click="fun(x.Click)">【【x.ButtonName】】</button>
                 </div>
             </div>
             <div class="col-sm-3">
@@ -52,14 +56,23 @@
                  <div class="col-sm-4 text-right text-center-xs">
                 <ul class="pagination pagination-sm m-t-none m-b-none pageindexlist">
                     <li><a href="#" ng-click="FenYe(0,0,'front')"><i class="fa fa-chevron-left"></i></a></li>
-                    <li ng-repeat="x in PageIndex" indexfs="{{x.index}}">
-                        <a href="javascript:;" ng-click="FenYe(x.index,'')">{{x.index}}</a>
+                    <li ng-repeat="x in PageIndex" indexfs="【【x.index】】">
+                        <a href="javascript:;" ng-click="FenYe(x.index,'')">【【x.index】】</a>
                     </li>
                     <li><a href="#" ng-click="FenYe(0,0,'after')"><i class="fa fa-chevron-right"></i></a></li>
                 </ul>
             </div>
         </div>
     </footer>
+
+	    <div class="loader" ng-if="loading">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
 </section>
 <script src="~/Scripts/bootstrap-ghptable.js"></script>
 

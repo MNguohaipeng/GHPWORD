@@ -33,8 +33,11 @@ namespace Common
                 case "System.Double":
                     ReturnData = SqlFunc.ToDouble(Value);
                     break;
+                case "System.Boolean":
+                    ReturnData = SqlFunc.ToBool(Value);
+                    break;
                 default:
-                    throw new Exception("不存在"+ Type.FullName+ "类型的转换函数，请联系开发人月");
+                    throw new Exception("不存在"+ Type.FullName+ "类型的转换函数，请联系开发人员");
             }
 
 

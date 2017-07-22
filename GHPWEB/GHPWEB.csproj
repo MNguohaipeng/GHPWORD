@@ -149,6 +149,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\SetPageController.cs" />
+    <Compile Include="Controllers\TableStringController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,6 +164,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Lib\MySql.Data.dll" />
     <Content Include="Lib\Newtonsoft.Json.dll" />
+    <Content Include="Models\angularGetSelectData方法模板.txt" />
+    <Content Include="Models\angular模板[特殊表单元素].txt" />
     <Content Include="Models\Controller模板.txt" />
     <Content Include="Models\cshtml模版.txt" />
     <Content Include="Models\cshtmlList模板.txt" />
@@ -192,6 +195,7 @@
     <Content Include="Template\css\font-awesome.min.css" />
     <Content Include="Template\css\font.css" />
     <Content Include="Template\css\simple-line-icons.css" />
+    <Content Include="Template\css\loading.css" />
     <Content Include="Template\fonts\fontawesome-webfont.svg" />
     <Content Include="Template\fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="Template\fonts\Simple-Line-Icons.svg" />
@@ -381,6 +385,11 @@
     <Content Include="Views\Menu\Add.cshtml" />
     <Content Include="Views\Menu\List.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\TableString\Add.cshtml" />
+    <Content Include="Views\TableString\List.cshtml" />
+    <Content Include="Views\Shared\_Layout_Body.cshtml" />
+    <Content Include="Views\Home\Views.cshtml" />
+    <Content Include="Views\SetPage\MenuButtonPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

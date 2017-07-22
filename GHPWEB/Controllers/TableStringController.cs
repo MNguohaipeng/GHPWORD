@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace GHPWEB.Controllers
 {
-    public class MenuController : BaseController
+    public class TableStringController : BaseController
     {
         public ActionResult Add()
         {
@@ -38,9 +38,9 @@ namespace GHPWEB.Controllers
                     if (fm == null)
                         throw new Exception("编辑数据不能为空");
 
-                    Menu EditMenu = new Menu();
+                    TableString EditTableString = new TableString();
 
-                    Type type = EditMenu.GetType();
+                    Type type = EditTableString.GetType();
 
                     object obj = new object();
 
@@ -52,12 +52,12 @@ namespace GHPWEB.Controllers
                         if (name != "Id" && name != "IsDeleted")
                         {
 
-                            //object TypeIF = pi.GetValue(EditMenu, null);//用pi.GetValue获得值
+                            //object TypeIF = pi.GetValue(EditTableString, null);//用pi.GetValue获得值
 
                             if (!string.IsNullOrEmpty(fm[name]))
                             {
 
-                                pi.SetValue(EditMenu, Common.Common.ConvertType(fm[name], pi.PropertyType));
+                                pi.SetValue(EditTableString, Common.Common.ConvertType(fm[name], pi.PropertyType));
 
                             }
 
@@ -65,21 +65,21 @@ namespace GHPWEB.Controllers
 
                     }
 
-                    EditMenu.IsDeleted = false;
-                    if (EditMenu.CreateTime == null)
+                    EditTableString.IsDeleted = false;
+                    if (EditTableString.CreateTime == null)
                     {
-                        EditMenu.CreateTime = DateTime.Now;
+                        EditTableString.CreateTime = DateTime.Now;
                     }
 
                     int Id ;
                     if (int.TryParse(fm["Id"], out Id))
                     {
-                         EditMenu.Id = Id;
-                        var t2 = db.Updateable(EditMenu).ExecuteCommand();
+                         EditTableString.Id = Id;
+                        var t2 = db.Updateable(EditTableString).ExecuteCommand();
                     }
                     else {
 
-                        var t2 = db.Insertable(EditMenu).ExecuteCommand();
+                        var t2 = db.Insertable(EditTableString).ExecuteCommand();
                     }
 
                     return Content(Common.Common.OutScript("AlertJump", "保存成功", "List"));
@@ -101,7 +101,7 @@ namespace GHPWEB.Controllers
                 {
                     int totalCount = 0;
 
-                    var page = db.Queryable<Menu>().Where(T=>T.IsDeleted==false).OrderBy(it => it.Id).ToPageList(pageIndex, pageSize, ref totalCount);
+                    var page = db.Queryable<TableString>().Where(T=>T.IsDeleted==false).OrderBy(it => it.Id).ToPageList(pageIndex, pageSize, ref totalCount);
 
                     return Json(new { start = 0, data = page, totalCount = totalCount, msg = "" }, JsonRequestBehavior.DenyGet);
                 }
@@ -119,7 +119,7 @@ namespace GHPWEB.Controllers
             using (var db = LinkDBHelper.CreateDB())
                 try
                 {
-                    var data= db.Queryable<Menu>().Where(T => T.IsDeleted == false && T.Id == Id).First();
+                    var data= db.Queryable<TableString>().Where(T => T.IsDeleted == false && T.Id == Id).First();
 
                     return Json(new { start = 0, data = data, msg = "" }, JsonRequestBehavior.DenyGet);
                 }
@@ -138,11 +138,11 @@ namespace GHPWEB.Controllers
                 {
                   int [] IdsArrey=Common.Common.OutIntArreyForIds(Ids);
 
-                    List<Menu> list = new List<Menu>();
+                    List<TableString> list = new List<TableString>();
                     for (int i = 0; i < IdsArrey.Length; i++)
                     {
                         var Id = IdsArrey[i];
-                      var Du= db.Queryable<Menu>().Where(T => T.IsDeleted == false && T.Id ==Id).First();
+                      var Du= db.Queryable<TableString>().Where(T => T.IsDeleted == false && T.Id ==Id).First();
                         Du.IsDeleted = true;
                         list.Add(Du);
                     }

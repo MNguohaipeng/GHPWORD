@@ -12,7 +12,7 @@ namespace Entity
         [SugarColumn(IsNullable = false, Length = 21)]
         public string LoginName { get; set; }
 
-        [SugarColumn(IsNullable = false, Length = 21)]
+        [SugarColumn(IsNullable = false, Length = 50)]
         public string Password { get; set; }
 
         [SugarColumn(IsNullable = true, Length = 15)]
