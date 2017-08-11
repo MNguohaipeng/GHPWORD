@@ -14,7 +14,8 @@ namespace GHPWEB.Controllers
     public class HomeController : Controller
     {
 
-        public ActionResult Views() {
+        public ActionResult Views()
+        {
             return View();
         }
 
@@ -74,9 +75,32 @@ namespace GHPWEB.Controllers
             using (var db = LinkDBHelper.CreateDB())
                 try
                 {
-                    string EntityFileUrl = ConfigurationManager.ConnectionStrings["EntityFileUrl"].ToString();
 
-                    string Sql = string.Format("SELECT {1} FROM {0} where Isdeleted='false' ", TableName, FildName);
+                    string EntityFileUrl = ConfigurationManager.ConnectionStrings["EntityFileUrl"].ToString();
+                    string Sql = "";
+
+                    #region  处理获取字段问题
+                    string[] FildArrey = FildName.Split(',');
+                    //for (int i = 0; i < FildArrey.Length; i++)
+                    //{
+                    //    if (!string.IsNullOrEmpty(FildArrey[i])) {
+                    //        FildName += FildArrey[i] + ",";
+                    //    }
+
+                    //}
+                    //FildName.TrimEnd(',');
+                    #endregion
+
+                    if (TableName.ToLower().Contains("sys"))
+                    {
+                        Sql = string.Format("SELECT {1} FROM {0} where 1=1 ", TableName, FildName);
+                    }
+                    else
+                    {
+                        Sql = string.Format("SELECT {1} FROM {0} where Isdeleted='false' ", TableName, FildName);
+                    }
+
+
                     if (!string.IsNullOrEmpty(Where))
                     {
                         Sql += " AND " + Where;
@@ -91,7 +115,7 @@ namespace GHPWEB.Controllers
                     List<object> list = new List<object>();
 
 
-                    string[] FildArrey = FildName.Split(',');
+ 
                     for (int i = 0; i < data.Rows.Count; i++)
                     {
                         object obj = result.CreateInstance("Entity." + TableName); // 创建类的实例 
@@ -103,7 +127,7 @@ namespace GHPWEB.Controllers
 
                         for (int a = 0; a < FildArrey.Length; a++)
                         {
-                            
+
                             foreach (PropertyInfo pi in obj.GetType().GetProperties())
                             {
                                 if (pi.Name == FildArrey[a])

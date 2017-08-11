@@ -12,7 +12,7 @@
 
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
   <header class="panel-heading font-bold">
-                  Menu
+                  Users
   </header>
 
     <div id="GHPTABLE">
@@ -82,7 +82,7 @@
  
  
 	var tableoption = {
-        thead: [{name:'',value:'Id',IsChack:true,},{name:'菜单名称',value:'MenuName',IsOrder:false,},{name:'等级',value:'Level',IsOrder:false,},{name:'上级ID',value:'ParentID',IsOrder:false,},{name:'地址',value:'Url',IsOrder:false,},{name:'类型',value:'Type',IsOrder:false,},{name:'排序',value:'Order',IsOrder:false,},{name:'表名',value:'MenuTableName',IsOrder:false,}],
+        thead: [{name:'',value:'Id',IsChack:true,},{name:'登录名',value:'LoginName',IsOrder:false,},{name:'密码',value:'Password',IsOrder:false,},{name:'真实姓名',value:'RealName',IsOrder:false,},{name:'手机',value:'Phone',IsOrder:false,},{name:'邮箱',value:'Email',IsOrder:false,},{name:'年龄',value:'Age',IsOrder:false,},{name:'性别',value:'Gender',IsOrder:false,}],
         tableid: "table"
     }
     var pages = 0;
@@ -118,7 +118,7 @@
             $http({
                 method: 'POST',
                 url: 'GetButton',
-                data: { MenuName: "Menu" }
+                data: { MenuName: "Users" }
             }).then(function successCallback(response) {
                 if (response.data.start == 1) {
 

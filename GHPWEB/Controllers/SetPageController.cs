@@ -78,5 +78,22 @@ namespace GHPWEB.Controllers
                 }
         }
 
+        //获取菜单按钮
+        public JsonResult GetMenuButton(int menuId)
+        {
+            using (var db = LinkDBHelper.CreateDB())
+                try
+                {
+                    var data = db.Queryable<Entity.MenuButton>().Where(T => T.IsDeleted == false&&T.MenuId== menuId).ToList();
+
+                    return Json(new { start = 0, data = data }, JsonRequestBehavior.DenyGet);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
     }
 }

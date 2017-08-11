@@ -148,10 +148,13 @@ namespace Core
                                         throw new Exception("生成下拉框必须要关联到表的数据");
 
                                     input += string.Format(one.YSValue, item.FieldName, item.OtherTableFieldBC, item.OtherTableFieldZS,(item.FieldName + "Data"), item.FieldShowMing, item.FieldName);
+
+                                    input = input.Replace("【","{");
+                                    input = input.Replace("】", "}");
                                     string Ls= File.ReadAllText(ProjectFileUrl + @"\Models\angularGetSelectData方法模板.txt");
                                     Select +=string.Format(Ls,"GetSelect"+ item.FieldName,item.OtherTableName,item.OtherTableWhere, (item.OtherTableFieldBC+","+ item.OtherTableFieldZS), (item.FieldName+"Data"));
 
-                                    MrSelect += "       $scope."+ item.FieldName + " = $scope.Update."+ item.FieldName + "";
+                                    MrSelect += "       $scope."+ item.FieldName + " = $scope.Update."+ item.FieldName + ";";
                             
 
                                     break;

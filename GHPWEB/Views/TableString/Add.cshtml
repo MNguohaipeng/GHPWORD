@@ -16,7 +16,8 @@
 
 <div class="panel-body">
  
-  <form class="form-horizontal" method="POST" action="Save" id="TableStringEditForm">        
+  <form class="form-horizontal" method="POST" action="Save" id="TableStringEditForm">    
+  <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
   <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
                       <label class="col-sm-2 control-label">字段名称</label>
@@ -33,15 +34,16 @@
                    
                       </div>
                     </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">输入类型</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='InputType' class="form-control" ng-model="Update.InputType">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">输入类型</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="InputType" ng-model="Update.InputType" />
+                    <select  class="form-control m-b"  ng-options="item.YSName as item.YSName for  item in InputTypeData" ng-model="Update.InputType">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
                       <label class="col-sm-2 control-label">表单验证</label>
                       <div class="col-sm-10">
@@ -57,15 +59,16 @@
                    
                       </div>
                     </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">其他表名</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='OtherTableName' class="form-control" ng-model="Update.OtherTableName">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">其他表名</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="OtherTableName" ng-model="Update.OtherTableName" />
+                    <select  class="form-control m-b"  ng-options="item.name as item.name for  item in OtherTableNameData" ng-model="Update.OtherTableName">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
                       <label class="col-sm-2 control-label">其他表字段 展示用</label>
                       <div class="col-sm-10">
@@ -81,15 +84,16 @@
                    
                       </div>
                     </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">表明</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='TableName' class="form-control" ng-model="Update.TableName">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">表名</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="TableName" ng-model="Update.TableName" />
+                    <select  class="form-control m-b"  ng-options="item.name as item.name for  item in TableNameData" ng-model="Update.TableName">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
                       <label class="col-sm-2 control-label">其他表查询条件</label>
                       <div class="col-sm-10">
@@ -106,15 +110,7 @@
 
 </form>
 </div>
-
-    <div class="loader" ng-if="loading">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    </div>
-
+ 
 </section>
 
 <script>
@@ -124,13 +120,10 @@ required:true ,
 FieldShowMing:{ 
 required:true ,
 },
-InputType:{ 
-required:true ,
-},
-AddWhere:{ 
-required:true ,
-},
 IsOtherTable:{ 
+required:true,
+},
+OtherTableName:{ 
 required:true,
 },
 TableName:{ 
@@ -146,28 +139,28 @@ required:true,
 
 
 
- app.module("GHPAPP", [])
-        .factory('httpInterceptor', ['$q', '$injector', function ($q, $injector) {
-            var httpInterceptor = {
-                'responseError': function (response){
-                    $scope.loading = false;
-                    return $q.reject(response);
-                },
-                'response': function (response) {
-                    $scope.loading = false;
-                    return response;
-                },
-                'request': function (config) {
-                    $scope.loading = true;
-                    return config;
-                },
-                'requestError': function (config) {
-                    $scope.loading = false;
-                    return $q.reject(config);
-                }
-            }
-            return httpInterceptor;
-        }])
+ //app.module("GHPAPP", [])
+ //    .factory('httpInterceptor', ['$q', '$injector', function ($q, $injector) {
+ //        var httpInterceptor = {
+ //            'responseError': function (response){
+ //                $scope.loading = false;
+ //                return $q.reject(response);
+ //            },
+ //            'response': function (response) {
+ //                $scope.loading = false;
+ //                return response;
+ //            },
+ //            'request': function (config) {
+ //                $scope.loading = true;
+ //                return config;
+ //            },
+ //            'requestError': function (config) {
+ //                $scope.loading = false;
+ //                return $q.reject(config);
+ //            }
+ //        }
+ //        return httpInterceptor;
+ //    }])
 
 
 
@@ -175,9 +168,71 @@ required:true,
               $scope.loading = false;
 	
 	 
+$scope.GetSelectInputType = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "EditPage", Where: "", FildName: "YSName,YSName" }
+            }).then(function successCallback(response) {
 
-        var Id = $location.url().split('#')[1].split("=")[1];
+                if (response.data.start == 0) {
 
+                    $scope.InputTypeData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectInputType();
+
+ 
+$scope.GetSelectOtherTableName = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "sysobjects", Where: "xtype='u'", FildName: "name,name" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.OtherTableNameData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectOtherTableName();
+
+ 
+$scope.GetSelectTableName = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "sysobjects", Where: "xtype='u'", FildName: "name,name" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.TableNameData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectTableName();
+
+ 
+	    var Id="";
+	 if($location.url()!=""){
+	 Id=$location.url().split('#')[1].split("=")[1];
+	 }
+ 
         $scope.load = function () {
             $http({
                 method: 'POST',
@@ -186,7 +241,7 @@ required:true,
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							
+							       $scope.InputType = $scope.Update.InputType;       $scope.OtherTableName = $scope.Update.OtherTableName;       $scope.TableName = $scope.Update.TableName;
                 } else {
                     alert( response.data.msg);
                 }

@@ -8,28 +8,28 @@
 
 
 
- app.module("GHPAPP", [])
-        .factory('httpInterceptor', ['$q', '$injector', function ($q, $injector) 【
-            var httpInterceptor = 【
-                'responseError': function (response)【
-                    $scope.loading = false;
-                    return $q.reject(response);
-                】,
-                'response': function (response) 【
-                    $scope.loading = false;
-                    return response;
-                】,
-                'request': function (config) 【
-                    $scope.loading = true;
-                    return config;
-                】,
-                'requestError': function (config) 【
-                    $scope.loading = false;
-                    return $q.reject(config);
-                】
-            】
-            return httpInterceptor;
-        】])
+ //app.module("GHPAPP", [])
+ //    .factory('httpInterceptor', ['$q', '$injector', function ($q, $injector) 【
+ //        var httpInterceptor = 【
+ //            'responseError': function (response)【
+ //                $scope.loading = false;
+ //                return $q.reject(response);
+ //            】,
+ //            'response': function (response) 【
+ //                $scope.loading = false;
+ //                return response;
+ //            】,
+ //            'request': function (config) 【
+ //                $scope.loading = true;
+ //                return config;
+ //            】,
+ //            'requestError': function (config) 【
+ //                $scope.loading = false;
+ //                return $q.reject(config);
+ //            】
+ //        】
+ //        return httpInterceptor;
+ //    】])
 
 
 
@@ -37,9 +37,11 @@
               $scope.loading = false;
 	
 	 {0}
-
-        var Id = $location.url().split('#')[1].split("=")[1];
-
+	    var Id="";
+	 if($location.url()!="")【
+	 Id=$location.url().split('#')[1].split("=")[1];
+	 】
+ 
         $scope.load = function () 【
             $http(【
                 method: 'POST',

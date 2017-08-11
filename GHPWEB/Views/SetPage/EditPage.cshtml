@@ -5,6 +5,7 @@
 }
 
  
+<script src="~/Scripts/angular.js"></script>
 
 <section class="panel panel-default" ng-app="EditPage" ng-controller="EditPageCtrl">
     <header class="panel-heading">
@@ -109,9 +110,7 @@
     });
     app.filter('jsondate', function ($filter) { //可以注入依赖
         return function (input, format) {
-
-            alert(input);
-
+ 
             //先得到时间戳
             var timestamp = Number(input.replace(/\/Date\((\d+)\)\//, "$1"));
 

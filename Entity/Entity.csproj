@@ -53,6 +53,8 @@
     <Compile Include="PageUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Role.cs" />
+    <Compile Include="RoleJurisdiction.cs" />
+    <Compile Include="sysobjects.cs" />
     <Compile Include="TableString.cs" />
     <Compile Include="Users.cs" />
   </ItemGroup>

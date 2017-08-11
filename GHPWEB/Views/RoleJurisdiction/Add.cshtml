@@ -11,72 +11,48 @@
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
  
   <header class="panel-heading font-bold">
-                  Menu
+                  RoleJurisdiction
                 </header>
 
 <div class="panel-body">
  
-  <form class="form-horizontal" method="POST" action="Save" id="MenuEditForm">    
+  <form class="form-horizontal" method="POST" action="Save" id="RoleJurisdictionEditForm">    
   <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
-  <div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">菜单名称</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='MenuName' class="form-control" ng-model="Update.MenuName">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">等级</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Level' class="form-control" ng-model="Update.Level">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>   
+  <div class="line line-dashed b-b line-lg pull-in"></div>   
  <div class="form-group">
-                <label class="col-sm-2 control-label">上级ID</label>
+                <label class="col-sm-2 control-label">角色ID</label>
                 <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="ParentID" ng-model="Update.ParentID" />
-                    <select  class="form-control m-b"  ng-options="item.Id as item.MenuName for  item in ParentIDData" ng-model="Update.ParentID">
+              <input type="text" ng-hide="true"  name="RoleId" ng-model="Update.RoleId" />
+                    <select  class="form-control m-b"  ng-options="item.Id as item.RoleName for  item in RoleIdData" ng-model="Update.RoleId">
                       </select>
                 </div>
             </div>
  <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">地址</label>
+                      <label class="col-sm-2 control-label">权限代码</label>
                       <div class="col-sm-10">
-                        <input type="text" name='Url' class="form-control" ng-model="Update.Url">
+                        <input type="text" name='JurisdictionCode' class="form-control" ng-model="Update.JurisdictionCode">
                    
                       </div>
                     </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">菜单ID</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="MenuId" ng-model="Update.MenuId" />
+                    <select  class="form-control m-b"  ng-options="item.Id as item.MenuName for  item in MenuIdData" ng-model="Update.MenuId">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">类型</label>
+                      <label class="col-sm-2 control-label">菜单权限</label>
                       <div class="col-sm-10">
-                        <input type="text" name='Type' class="form-control" ng-model="Update.Type">
+                        <input type="text" name='MenuJurisdiction' class="form-control" ng-model="Update.MenuJurisdiction">
                    
                       </div>
                     </div>
 
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">排序</label>
-                      <div class="col-sm-10">
-                        <input type="number" name='Order' class="form-control" ng-model="Update.Order">
-                   
-                      </div>
-                    </div><div class="line line-dashed b-b line-lg pull-in"></div>   
- <div class="form-group">
-                <label class="col-sm-2 control-label">表名</label>
-                <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="MenuTableName" ng-model="Update.MenuTableName" />
-                    <select  class="form-control m-b"  ng-options="item.name as item.name for  item in MenuTableNameData" ng-model="Update.MenuTableName">
-                      </select>
-                </div>
-            </div>
- 
 
   <div class="text-center">
   <button class="btn btn-s-md btn-default" type="submit">保存</button>
@@ -89,20 +65,8 @@
 </section>
 
 <script>
-$('#MenuEditForm').validate({rules: {MenuName:{ 
-required:true ,
-},
-Level:{ 
-required:true ,
-},
-Url:{ 
-required:true ,
-},
-Type:{ 
-required:true ,
-},
-Order:{ 
-required:true ,
+$('#RoleJurisdictionEditForm').validate({rules: {JurisdictionCode:{ 
+required:true,
 },
 }   }); 
  
@@ -143,7 +107,27 @@ required:true ,
               $scope.loading = false;
 	
 	 
-$scope.GetSelectParentID = function () {
+$scope.GetSelectRoleId = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "Role", Where: "", FildName: "Id,RoleName" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.RoleIdData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectRoleId();
+
+ 
+$scope.GetSelectMenuId = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
@@ -152,7 +136,7 @@ $scope.GetSelectParentID = function () {
 
                 if (response.data.start == 0) {
 
-                    $scope.ParentIDData = response.data.data;
+                    $scope.MenuIdData = response.data.data;
                 } else {
 
                 }
@@ -160,27 +144,7 @@ $scope.GetSelectParentID = function () {
                 console.log(JSON.stringify(response))
             });
         }
- $scope.GetSelectParentID();
-
- 
-$scope.GetSelectMenuTableName = function () {
-            $http({
-                method: 'POST',
-                url: '/Home/GetSelectData',
-                data: { TableName: "sysobjects", Where: "xtype='u'", FildName: "name,name" }
-            }).then(function successCallback(response) {
-
-                if (response.data.start == 0) {
-
-                    $scope.MenuTableNameData = response.data.data;
-                } else {
-
-                }
-            }, function errorCallback(response) {
-                console.log(JSON.stringify(response))
-            });
-        }
- $scope.GetSelectMenuTableName();
+ $scope.GetSelectMenuId();
 
  
 	    var Id="";
@@ -196,7 +160,7 @@ $scope.GetSelectMenuTableName = function () {
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							       $scope.ParentID = $scope.Update.ParentID;       $scope.MenuTableName = $scope.Update.MenuTableName;
+							       $scope.RoleId = $scope.Update.RoleId;       $scope.MenuId = $scope.Update.MenuId;
                 } else {
                     alert( response.data.msg);
                 }

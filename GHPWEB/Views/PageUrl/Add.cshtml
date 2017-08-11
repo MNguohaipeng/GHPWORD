@@ -1,0 +1,158 @@
+﻿ 
+  @{
+ Layout = "~/Views/Shared/_Layout_Body.cshtml";
+ }
+
+
+
+
+@Scripts.Render("~/bundles/Validata")
+
+<section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
+ 
+  <header class="panel-heading font-bold">
+                  PageUrl
+                </header>
+
+<div class="panel-body">
+ 
+  <form class="form-horizontal" method="POST" action="Save" id="PageUrlEditForm">    
+  <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
+  <div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">页面名称</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='PageName' class="form-control" ng-model="Update.PageName">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">实体类名</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='EntityName' class="form-control" ng-model="Update.EntityName">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">Html地址</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='HtmlUrl' class="form-control" ng-model="Update.HtmlUrl">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">Controller地址</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='ControllerUrl' class="form-control" ng-model="Update.ControllerUrl">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">是否启用用户编辑</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='IsUserEdit' class="form-control" ng-model="Update.IsUserEdit">
+                   
+                      </div>
+                    </div>
+
+
+  <div class="text-center">
+  <button class="btn btn-s-md btn-default" type="submit">保存</button>
+    <button class="btn btn-s-md btn-default" type="button" onclick="location='List'">取消</button>
+  </div>
+
+</form>
+</div>
+ 
+</section>
+
+<script>
+$('#PageUrlEditForm').validate({rules: {PageName:{ 
+required:true,
+},
+EntityName:{ 
+required:true,
+},
+HtmlUrl:{ 
+required:true,
+},
+ControllerUrl:{ 
+required:true,
+},
+IsUserEdit:{ 
+required:true,
+},
+}   }); 
+ 
+ 
+ 
+ 
+ var app = angular.module("GHPAPP", []);
+
+
+
+
+ //app.module("GHPAPP", [])
+ //    .factory('httpInterceptor', ['$q', '$injector', function ($q, $injector) {
+ //        var httpInterceptor = {
+ //            'responseError': function (response){
+ //                $scope.loading = false;
+ //                return $q.reject(response);
+ //            },
+ //            'response': function (response) {
+ //                $scope.loading = false;
+ //                return response;
+ //            },
+ //            'request': function (config) {
+ //                $scope.loading = true;
+ //                return config;
+ //            },
+ //            'requestError': function (config) {
+ //                $scope.loading = false;
+ //                return $q.reject(config);
+ //            }
+ //        }
+ //        return httpInterceptor;
+ //    }])
+
+
+
+    app.controller("GHPCtrl", function ($scope, $location,$http) {
+              $scope.loading = false;
+	
+	 
+	    var Id="";
+	 if($location.url()!=""){
+	 Id=$location.url().split('#')[1].split("=")[1];
+	 }
+ 
+        $scope.load = function () {
+            $http({
+                method: 'POST',
+                url: 'GetUpdateData',
+                data: { Id: Id }
+           }).then(function successCallback(response) {
+                if (response.data.start == 0) {
+                    $scope.Update = response.data.data;
+							
+                } else {
+                    alert( response.data.msg);
+                }
+            }, function errorCallback(response){
+                // 请求失败执行代码
+           });
+
+        }
+
+        if (Id != "") {
+            $scope.load();
+			
+        }
+
+    })
+</script>
+ 

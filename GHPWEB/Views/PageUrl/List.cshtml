@@ -12,7 +12,7 @@
 
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
   <header class="panel-heading font-bold">
-                  Menu
+                  PageUrl
   </header>
 
     <div id="GHPTABLE">
@@ -82,7 +82,7 @@
  
  
 	var tableoption = {
-        thead: [{name:'',value:'Id',IsChack:true,},{name:'菜单名称',value:'MenuName',IsOrder:false,},{name:'等级',value:'Level',IsOrder:false,},{name:'上级ID',value:'ParentID',IsOrder:false,},{name:'地址',value:'Url',IsOrder:false,},{name:'类型',value:'Type',IsOrder:false,},{name:'排序',value:'Order',IsOrder:false,},{name:'表名',value:'MenuTableName',IsOrder:false,}],
+        thead: [{name:'',value:'Id',IsChack:true,},{name:'页面名称',value:'PageName',IsOrder:false,},{name:'实体类名',value:'EntityName',IsOrder:false,},{name:'Html地址',value:'HtmlUrl',IsOrder:false,},{name:'Controller地址',value:'ControllerUrl',IsOrder:false,},{name:'是否启用用户编辑',value:'IsUserEdit',IsOrder:false,}],
         tableid: "table"
     }
     var pages = 0;
@@ -118,7 +118,7 @@
             $http({
                 method: 'POST',
                 url: 'GetButton',
-                data: { MenuName: "Menu" }
+                data: { MenuName: "PageUrl" }
             }).then(function successCallback(response) {
                 if (response.data.start == 1) {
 

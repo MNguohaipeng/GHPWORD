@@ -1,0 +1,178 @@
+﻿ 
+  @{
+ Layout = "~/Views/Shared/_Layout_Body.cshtml";
+ }
+
+
+
+
+@Scripts.Render("~/bundles/Validata")
+
+<section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
+ 
+  <header class="panel-heading font-bold">
+                  MenuButton
+                </header>
+
+<div class="panel-body">
+ 
+  <form class="form-horizontal" method="POST" action="Save" id="MenuButtonEditForm">    
+  <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
+  <div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">按钮ID</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="ButtonId" ng-model="Update.ButtonId" />
+                    <select  class="form-control m-b"  ng-options="item.Id as item.ButtonName for  item in ButtonIdData" ng-model="Update.ButtonId">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">菜单ID</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="MenuId" ng-model="Update.MenuId" />
+                    <select  class="form-control m-b"  ng-options="item.Id as item.MenuName for  item in MenuIdData" ng-model="Update.MenuId">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">权限代码</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='JurisdictionCode' class="form-control" ng-model="Update.JurisdictionCode">
+                   
+                      </div>
+                    </div>
+
+
+  <div class="text-center">
+  <button class="btn btn-s-md btn-default" type="submit">保存</button>
+    <button class="btn btn-s-md btn-default" type="button" onclick="location='List'">取消</button>
+  </div>
+
+</form>
+</div>
+ 
+</section>
+
+<script>
+$('#MenuButtonEditForm').validate({rules: {ButtonId:{ 
+required:true,
+},
+MenuId:{ 
+required:true,
+},
+JurisdictionCode:{ 
+required:true,
+},
+}   }); 
+ 
+ 
+ 
+ 
+ var app = angular.module("GHPAPP", []);
+
+
+
+
+ //app.module("GHPAPP", [])
+ //    .factory('httpInterceptor', ['$q', '$injector', function ($q, $injector) {
+ //        var httpInterceptor = {
+ //            'responseError': function (response){
+ //                $scope.loading = false;
+ //                return $q.reject(response);
+ //            },
+ //            'response': function (response) {
+ //                $scope.loading = false;
+ //                return response;
+ //            },
+ //            'request': function (config) {
+ //                $scope.loading = true;
+ //                return config;
+ //            },
+ //            'requestError': function (config) {
+ //                $scope.loading = false;
+ //                return $q.reject(config);
+ //            }
+ //        }
+ //        return httpInterceptor;
+ //    }])
+
+
+
+    app.controller("GHPCtrl", function ($scope, $location,$http) {
+              $scope.loading = false;
+	
+	 
+$scope.GetSelectButtonId = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "Button", Where: "1=1", FildName: "Id,ButtonName" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.ButtonIdData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectButtonId();
+
+ 
+$scope.GetSelectMenuId = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "Menu", Where: "", FildName: "Id,MenuName" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.MenuIdData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectMenuId();
+
+ 
+	    var Id="";
+	 if($location.url()!=""){
+	 Id=$location.url().split('#')[1].split("=")[1];
+	 }
+ 
+        $scope.load = function () {
+            $http({
+                method: 'POST',
+                url: 'GetUpdateData',
+                data: { Id: Id }
+           }).then(function successCallback(response) {
+                if (response.data.start == 0) {
+                    $scope.Update = response.data.data;
+							       $scope.ButtonId = $scope.Update.ButtonId;       $scope.MenuId = $scope.Update.MenuId;
+                } else {
+                    alert( response.data.msg);
+                }
+            }, function errorCallback(response){
+                // 请求失败执行代码
+           });
+
+        }
+
+        if (Id != "") {
+            $scope.load();
+			
+        }
+
+    })
+</script>
+ 
