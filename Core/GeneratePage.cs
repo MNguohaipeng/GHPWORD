@@ -168,7 +168,7 @@ namespace Core
 
                     #region 创建script
 
-              
+                    string xxxxx = TableString[0].TableName;
 
                     Script = "$('#" + TableString[0].TableName + "EditForm').validate(【";
 

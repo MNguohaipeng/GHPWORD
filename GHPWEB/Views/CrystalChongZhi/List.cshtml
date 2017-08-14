@@ -12,7 +12,7 @@
 
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
   <header class="panel-heading font-bold">
-                  Users
+                  CrystalChongZhi
   </header>
 
     <div id="GHPTABLE">
@@ -82,7 +82,7 @@
  
  
 	var tableoption = {
-        thead: [{name:'',value:'Id',IsChack:true,},{name:'登录名',value:'LoginName',IsOrder:false,},{name:'密码',value:'Password',IsOrder:false,},{name:'真实姓名',value:'RealName',IsOrder:false,},{name:'手机',value:'Phone',IsOrder:false,},{name:'邮箱',value:'Email',IsOrder:false,},{name:'年龄',value:'Age',IsOrder:false,},{name:'性别',value:'Gender',IsOrder:false,},{name:'省份',value:'ShengFen',IsOrder:false,},{name:'城市',value:'ChengShi',IsOrder:false,},{name:'县区',value:'XianQu',IsOrder:false,},{name:'详细',value:'XiangXi',IsOrder:false,},{name:'昵称',value:'NiCheng',IsOrder:false,}],
+        thead: [{name:'',value:'Id',IsChack:true,},{name:'用户ID',value:'UserId',IsOrder:false,},{name:'充值数量',value:'ChongZhiShuLiang',IsOrder:false,}],
         tableid: "table"
     }
     var pages = 0;
@@ -118,7 +118,7 @@
             $http({
                 method: 'POST',
                 url: 'GetButton',
-                data: { MenuName: "Users" }
+                data: { MenuName: "CrystalChongZhi" }
             }).then(function successCallback(response) {
                 if (response.data.start == 1) {
 

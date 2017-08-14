@@ -74,6 +74,49 @@
                    
                       </div>
                     </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">省份</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="ShengFen" ng-model="Update.ShengFen" />
+                    <select  class="form-control m-b"  ng-options="item.ProductID as item.ProductName for  item in ShengFenData" ng-model="Update.ShengFen">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">城市</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="ChengShi" ng-model="Update.ChengShi" />
+                    <select  class="form-control m-b"  ng-options="item.cityID as item.cityName for  item in ChengShiData" ng-model="Update.ChengShi">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="form-group">
+                <label class="col-sm-2 control-label">县区</label>
+                <div class="col-sm-10">
+              <input type="text" ng-hide="true"  name="XianQu" ng-model="Update.XianQu" />
+                    <select  class="form-control m-b"  ng-options="item.areaID as item.areaName for  item in XianQuData" ng-model="Update.XianQu">
+                      </select>
+                </div>
+            </div>
+ <div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">详细</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='XiangXi' class="form-control" ng-model="Update.XiangXi">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">昵称</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='NiCheng' class="form-control" ng-model="Update.NiCheng">
+                   
+                      </div>
+                    </div>
 
 
   <div class="text-center">
@@ -147,6 +190,66 @@ required:true,
               $scope.loading = false;
 	
 	 
+$scope.GetSelectShengFen = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "province", Where: "", FildName: "ProductID,ProductName" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.ShengFenData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectShengFen();
+
+ 
+$scope.GetSelectChengShi = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "city", Where: "", FildName: "cityID,cityName" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.ChengShiData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectChengShi();
+
+ 
+$scope.GetSelectXianQu = function () {
+            $http({
+                method: 'POST',
+                url: '/Home/GetSelectData',
+                data: { TableName: "Areas", Where: "", FildName: "areaID,areaName" }
+            }).then(function successCallback(response) {
+
+                if (response.data.start == 0) {
+
+                    $scope.XianQuData = response.data.data;
+                } else {
+
+                }
+            }, function errorCallback(response) {
+                console.log(JSON.stringify(response))
+            });
+        }
+ $scope.GetSelectXianQu();
+
+ 
 	    var Id="";
 	 if($location.url()!=""){
 	 Id=$location.url().split('#')[1].split("=")[1];
@@ -160,7 +263,7 @@ required:true,
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							
+							       $scope.ShengFen = $scope.Update.ShengFen;       $scope.ChengShi = $scope.Update.ChengShi;       $scope.XianQu = $scope.Update.XianQu;
                 } else {
                     alert( response.data.msg);
                 }

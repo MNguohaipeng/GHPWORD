@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace GHPWEB.Controllers
 {
-    public class RoleJurisdictionController : BaseController
+    public class ReleaseController : BaseController
     {
         public ActionResult Add()
         {
@@ -38,9 +38,9 @@ namespace GHPWEB.Controllers
                     if (fm == null)
                         throw new Exception("编辑数据不能为空");
 
-                    RoleJurisdiction EditRoleJurisdiction = new RoleJurisdiction();
+                    Release EditRelease = new Release();
 
-                    Type type = EditRoleJurisdiction.GetType();
+                    Type type = EditRelease.GetType();
 
                     object obj = new object();
 
@@ -52,12 +52,12 @@ namespace GHPWEB.Controllers
                         if (name != "Id" && name != "IsDeleted")
                         {
 
-                            //object TypeIF = pi.GetValue(EditRoleJurisdiction, null);//用pi.GetValue获得值
+                            //object TypeIF = pi.GetValue(EditRelease, null);//用pi.GetValue获得值
 
                             if (!string.IsNullOrEmpty(fm[name]))
                             {
 
-                                pi.SetValue(EditRoleJurisdiction, Common.Common.ConvertType(fm[name], pi.PropertyType));
+                                pi.SetValue(EditRelease, Common.Common.ConvertType(fm[name], pi.PropertyType));
 
                             }
 
@@ -65,21 +65,21 @@ namespace GHPWEB.Controllers
 
                     }
 
-                    EditRoleJurisdiction.IsDeleted = false;
-                    if (EditRoleJurisdiction.CreateTime == null)
+                    EditRelease.IsDeleted = false;
+                    if (EditRelease.CreateTime == null)
                     {
-                        EditRoleJurisdiction.CreateTime = DateTime.Now;
+                        EditRelease.CreateTime = DateTime.Now;
                     }
 
                     int Id ;
                     if (int.TryParse(fm["Id"], out Id))
                     {
-                         EditRoleJurisdiction.Id = Id;
-                        var t2 = db.Updateable(EditRoleJurisdiction).ExecuteCommand();
+                         EditRelease.Id = Id;
+                        var t2 = db.Updateable(EditRelease).ExecuteCommand();
                     }
                     else {
 
-                        var t2 = db.Insertable(EditRoleJurisdiction).ExecuteCommand();
+                        var t2 = db.Insertable(EditRelease).ExecuteCommand();
                     }
 
                     return Content(Common.Common.OutScript("AlertJump", "保存成功", "List"));
@@ -101,7 +101,7 @@ namespace GHPWEB.Controllers
                 {
                     int totalCount = 0;
 
-                    var page = db.Queryable<RoleJurisdiction>().Where(T=>T.IsDeleted==false).OrderBy(it => it.Id).ToPageList(pageIndex, pageSize, ref totalCount);
+                    var page = db.Queryable<Release>().Where(T=>T.IsDeleted==false).OrderBy(it => it.Id).ToPageList(pageIndex, pageSize, ref totalCount);
 
                     return Json(new { start = 0, data = page, totalCount = totalCount, msg = "" }, JsonRequestBehavior.DenyGet);
                 }
@@ -119,7 +119,7 @@ namespace GHPWEB.Controllers
             using (var db = LinkDBHelper.CreateDB())
                 try
                 {
-                    var data= db.Queryable<RoleJurisdiction>().Where(T => T.IsDeleted == false && T.Id == Id).First();
+                    var data= db.Queryable<Release>().Where(T => T.IsDeleted == false && T.Id == Id).First();
 
                     return Json(new { start = 0, data = data, msg = "" }, JsonRequestBehavior.DenyGet);
                 }
@@ -138,11 +138,11 @@ namespace GHPWEB.Controllers
                 {
                   int [] IdsArrey=Common.Common.OutIntArreyForIds(Ids);
 
-                    List<RoleJurisdiction> list = new List<RoleJurisdiction>();
+                    List<Release> list = new List<Release>();
                     for (int i = 0; i < IdsArrey.Length; i++)
                     {
                         var Id = IdsArrey[i];
-                      var Du= db.Queryable<RoleJurisdiction>().Where(T => T.IsDeleted == false && T.Id ==Id).First();
+                      var Du= db.Queryable<Release>().Where(T => T.IsDeleted == false && T.Id ==Id).First();
                         Du.IsDeleted = true;
                         list.Add(Du);
                     }

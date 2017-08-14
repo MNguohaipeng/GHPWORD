@@ -30,6 +30,20 @@ namespace Entity
         [SugarColumn(IsNullable = true, Length = 5)]
         public string Gender { get; set; }
 
-
+        //省份
+        [SugarColumn(IsNullable = true, Length = 20)]
+        public string ShengFen { get; set; }
+        //城市
+        [SugarColumn(IsNullable = true, Length = 20)]
+        public string ChengShi { get; set; }
+        //县区
+        [SugarColumn(IsNullable = true, Length = 20)]
+        public string XianQu { get; set; }
+        //详细地址
+        [SugarColumn(IsNullable = true, Length = 500)]
+        public string XiangXi { get; set; }
+        //昵称
+        [SugarColumn(IsNullable = true, Length = 20)]
+        public string NiCheng { get; set; }
     }
 }

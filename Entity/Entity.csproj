@@ -43,15 +43,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Areas.cs" />
     <Compile Include="Button.cs" />
     <Compile Include="B_CodeTable.cs" />
     <Compile Include="B_EntityBase.cs" />
+    <Compile Include="Citys.cs" />
+    <Compile Include="CrystalChongZhi.cs" />
+    <Compile Include="CrystalLibrary.cs" />
+    <Compile Include="CrystalRecord.cs" />
     <Compile Include="EditPage.cs" />
     <Compile Include="Function.cs" />
+    <Compile Include="ImageTable.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="MenuButton.cs" />
     <Compile Include="PageUrl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Province.cs" />
+    <Compile Include="Release.cs" />
     <Compile Include="Role.cs" />
     <Compile Include="RoleJurisdiction.cs" />
     <Compile Include="sysobjects.cs" />

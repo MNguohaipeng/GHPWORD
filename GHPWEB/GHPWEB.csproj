@@ -145,11 +145,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CrystalChongZhiController.cs" />
+    <Compile Include="Controllers\CrystalLibraryController.cs" />
+    <Compile Include="Controllers\CrystalRecordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageTableController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuButtonController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\PageUrlController.cs" />
+    <Compile Include="Controllers\ReleaseController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\RoleJurisdictionController.cs" />
     <Compile Include="Controllers\SetPageController.cs" />
@@ -183,6 +188,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -405,6 +411,16 @@
     <Content Include="Views\RoleJurisdiction\List.cshtml" />
     <Content Include="Views\Role\Add.cshtml" />
     <Content Include="Views\Role\List.cshtml" />
+    <Content Include="Views\CrystalLibrary\Add.cshtml" />
+    <Content Include="Views\CrystalLibrary\List.cshtml" />
+    <Content Include="Views\CrystalRecord\Add.cshtml" />
+    <Content Include="Views\CrystalRecord\List.cshtml" />
+    <Content Include="Views\ImageTable\Add.cshtml" />
+    <Content Include="Views\ImageTable\List.cshtml" />
+    <Content Include="Views\Release\Add.cshtml" />
+    <Content Include="Views\Release\List.cshtml" />
+    <Content Include="Views\CrystalChongZhi\Add.cshtml" />
+    <Content Include="Views\CrystalChongZhi\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

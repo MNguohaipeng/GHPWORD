@@ -11,44 +11,43 @@
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
  
   <header class="panel-heading font-bold">
-                  RoleJurisdiction
+                  CrystalRecord
                 </header>
 
 <div class="panel-body">
  
-  <form class="form-horizontal" method="POST" action="Save" id="RoleJurisdictionEditForm">    
+  <form class="form-horizontal" method="POST" action="Save" id="CrystalRecordEditForm">    
   <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
   <div class="line line-dashed b-b line-lg pull-in"></div>   
  <div class="form-group">
-                <label class="col-sm-2 control-label">角色ID</label>
+                <label class="col-sm-2 control-label">用户ID</label>
                 <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="RoleId" ng-model="Update.RoleId" />
-                    <select  class="form-control m-b"  ng-options="item.Id as item.LoginName for  item in RoleIdData" ng-model="Update.RoleId">
+              <input type="text" ng-hide="true"  name="UserId" ng-model="Update.UserId" />
+                    <select  class="form-control m-b"  ng-options="item.Id as item.LoginName for  item in UserIdData" ng-model="Update.UserId">
                       </select>
                 </div>
             </div>
- <div class="line line-dashed b-b line-lg pull-in"></div>
+ 
+<div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">权限代码</label>
+                      <label class="col-sm-2 control-label">类型{0进1出}</label>
                       <div class="col-sm-10">
-                        <input type="text" name='JurisdictionCode' class="form-control" ng-model="Update.JurisdictionCode">
+                        <input type="number" name='Type' class="form-control" ng-model="Update.Type">
                    
                       </div>
                     </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>   
- <div class="form-group">
-                <label class="col-sm-2 control-label">菜单ID</label>
-                <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="MenuId" ng-model="Update.MenuId" />
-                    <select  class="form-control m-b"  ng-options="item.Id as item.MenuName for  item in MenuIdData" ng-model="Update.MenuId">
-                      </select>
-                </div>
-            </div>
- <div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">菜单权限</label>
+                      <label class="col-sm-2 control-label">数量</label>
                       <div class="col-sm-10">
-                        <input type="text" name='MenuJurisdiction' class="form-control" ng-model="Update.MenuJurisdiction">
+                        <input type="number" name='Number' class="form-control" ng-model="Update.Number">
+                   
+                      </div>
+                    </div><div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">结余</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='JieYu' class="form-control" ng-model="Update.JieYu">
                    
                       </div>
                     </div>
@@ -65,7 +64,13 @@
 </section>
 
 <script>
-$('#RoleJurisdictionEditForm').validate({rules: {JurisdictionCode:{ 
+$('#CrystalRecordEditForm').validate({rules: {Type:{ 
+required:true,
+},
+Number:{ 
+required:true,
+},
+JieYu:{ 
 required:true,
 },
 }   }); 
@@ -107,16 +112,16 @@ required:true,
               $scope.loading = false;
 	
 	 
-$scope.GetSelectRoleId = function () {
+$scope.GetSelectUserId = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
-                data: { TableName: "Role", Where: "", FildName: "Id,LoginName" }
+                data: { TableName: "Users", Where: "", FildName: "Id,LoginName" }
             }).then(function successCallback(response) {
 
                 if (response.data.start == 0) {
 
-                    $scope.RoleIdData = response.data.data;
+                    $scope.UserIdData = response.data.data;
                 } else {
 
                 }
@@ -124,27 +129,7 @@ $scope.GetSelectRoleId = function () {
                 console.log(JSON.stringify(response))
             });
         }
- $scope.GetSelectRoleId();
-
- 
-$scope.GetSelectMenuId = function () {
-            $http({
-                method: 'POST',
-                url: '/Home/GetSelectData',
-                data: { TableName: "Menu", Where: "", FildName: "Id,MenuName" }
-            }).then(function successCallback(response) {
-
-                if (response.data.start == 0) {
-
-                    $scope.MenuIdData = response.data.data;
-                } else {
-
-                }
-            }, function errorCallback(response) {
-                console.log(JSON.stringify(response))
-            });
-        }
- $scope.GetSelectMenuId();
+ $scope.GetSelectUserId();
 
  
 	    var Id="";
@@ -160,7 +145,7 @@ $scope.GetSelectMenuId = function () {
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							       $scope.RoleId = $scope.Update.RoleId;       $scope.MenuId = $scope.Update.MenuId;
+							       $scope.UserId = $scope.Update.UserId;
                 } else {
                     alert( response.data.msg);
                 }
