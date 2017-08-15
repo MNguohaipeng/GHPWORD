@@ -21,7 +21,7 @@ namespace GHPWEB
                 "~/Template/js/wysiwyg/jquery.hotkeys.js",
                 "~/Template/js/wysiwyg/bootstrap-wysiwyg.js",
                 "~/Template/js/wysiwyg/demo.js",
-               // "~/Template/js/markdown/epiceditor.min.js",
+                "~/Template/js/markdown/epiceditor.min.js",
                 "~/Template/js/markdown/demo.js",
                 "~/Template/js/chosen/chosen.jquery.min.js",
                 "~/Template/js/app.plugin.js",
