@@ -145,11 +145,14 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ChargingModeController.cs" />
     <Compile Include="Controllers\CrystalChongZhiController.cs" />
     <Compile Include="Controllers\CrystalLibraryController.cs" />
     <Compile Include="Controllers\CrystalRecordController.cs" />
+    <Compile Include="Controllers\DictionariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageTableController.cs" />
+    <Compile Include="Controllers\ListPageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MenuButtonController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
@@ -160,6 +163,7 @@
     <Compile Include="Controllers\SetPageController.cs" />
     <Compile Include="Controllers\TableStringController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VoiceChatRecordController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -421,6 +425,14 @@
     <Content Include="Views\Release\List.cshtml" />
     <Content Include="Views\CrystalChongZhi\Add.cshtml" />
     <Content Include="Views\CrystalChongZhi\List.cshtml" />
+    <Content Include="Views\ListPage\Add.cshtml" />
+    <Content Include="Views\ListPage\List.cshtml" />
+    <Content Include="Views\VoiceChatRecord\Add.cshtml" />
+    <Content Include="Views\VoiceChatRecord\List.cshtml" />
+    <Content Include="Views\Dictionaries\Add.cshtml" />
+    <Content Include="Views\Dictionaries\List.cshtml" />
+    <Content Include="Views\ChargingMode\Add.cshtml" />
+    <Content Include="Views\ChargingMode\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -11,72 +11,79 @@
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
  
   <header class="panel-heading font-bold">
-                  Menu
+                  列表显示配置
                 </header>
 
 <div class="panel-body">
  
-  <form class="form-horizontal" method="POST" action="Save" id="MenuEditForm">    
+  <form class="form-horizontal" method="POST" action="Save" id="ListPageEditForm">    
   <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
   <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">菜单名称</label>
+                      <label class="col-sm-2 control-label">表明</label>
                       <div class="col-sm-10">
-                        <input type="text" name='MenuName' class="form-control" ng-model="Update.MenuName">
+                        <input type="text" name='TableName' class="form-control" ng-model="Update.TableName">
                    
                       </div>
                     </div>
 <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">等级</label>
+                      <label class="col-sm-2 control-label">字段名称</label>
                       <div class="col-sm-10">
-                        <input type="text" name='Level' class="form-control" ng-model="Update.Level">
+                        <input type="text" name='ColnumName' class="form-control" ng-model="Update.ColnumName">
                    
                       </div>
                     </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>   
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">是否进行数据处理</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='IsReplaceOriginal' class="form-control" ng-model="Update.IsReplaceOriginal">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">处理参数</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='ReplaceParameter' class="form-control" ng-model="Update.ReplaceParameter">
+                   
+                      </div>
+                    </div>
+
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">是否外接数据</label>
+                      <div class="col-sm-10">
+                        <input type="number" name='IsWaiJieData' class="form-control" ng-model="Update.IsWaiJieData">
+                   
+                      </div>
+                    </div><div class="line line-dashed b-b line-lg pull-in"></div>   
  <div class="form-group">
-                <label class="col-sm-2 control-label">上级ID</label>
+                <label class="col-sm-2 control-label">其他表名</label>
                 <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="ParentID" ng-model="Update.ParentID" />
-                    <select  class="form-control m-b"  ng-options="item.Id as item.MenuName for  item in ParentIDData" ng-model="Update.ParentID">
+              <input type="text" ng-hide="true"  name="OtherTableName" ng-model="Update.OtherTableName" />
+                    <select  class="form-control m-b"  ng-options="item.TableName as item.TableName for  item in OtherTableNameData" ng-model="Update.OtherTableName">
                       </select>
                 </div>
             </div>
  <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">地址</label>
+                      <label class="col-sm-2 control-label">展示字段</label>
                       <div class="col-sm-10">
-                        <input type="text" name='Url' class="form-control" ng-model="Update.Url">
+                        <input type="text" name='OtherTableFieldZS' class="form-control" ng-model="Update.OtherTableFieldZS">
                    
                       </div>
                     </div>
 <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">类型</label>
+                      <label class="col-sm-2 control-label">条件</label>
                       <div class="col-sm-10">
-                        <input type="text" name='Type' class="form-control" ng-model="Update.Type">
+                        <input type="text" name='OtherTableWhere' class="form-control" ng-model="Update.OtherTableWhere">
                    
                       </div>
                     </div>
 
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">排序</label>
-                      <div class="col-sm-10">
-                        <input type="number" name='Order' class="form-control" ng-model="Update.Order">
-                   
-                      </div>
-                    </div><div class="line line-dashed b-b line-lg pull-in"></div>   
- <div class="form-group">
-                <label class="col-sm-2 control-label">表名</label>
-                <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="MenuTableName" ng-model="Update.MenuTableName" />
-                    <select  class="form-control m-b"  ng-options="item.TableName as item.TableName for  item in MenuTableNameData" ng-model="Update.MenuTableName">
-                      </select>
-                </div>
-            </div>
- 
 
   <div class="text-center">
   <button class="btn btn-s-md btn-default" type="submit">保存</button>
@@ -89,20 +96,20 @@
 </section>
 
 <script>
-$('#MenuEditForm').validate({rules: {MenuName:{ 
-required:true ,
+$('#ListPageEditForm').validate({rules: {TableName:{ 
+required:true,
 },
-Level:{ 
-required:true ,
+ColnumName:{ 
+required:true,
 },
-Url:{ 
-required:true ,
+IsReplaceOriginal:{ 
+required:true,
 },
-Type:{ 
-required:true ,
+IsWaiJieData:{ 
+required:true,
 },
-Order:{ 
-required:true ,
+OtherTableName:{ 
+required:true,
 },
 }   }); 
  
@@ -143,27 +150,7 @@ required:true ,
               $scope.loading = false;
 	
 	 
-$scope.GetSelectParentID = function () {
-            $http({
-                method: 'POST',
-                url: '/Home/GetSelectData',
-                data: { TableName: "Menu", Where: "", FildName: "Id,MenuName" }
-            }).then(function successCallback(response) {
-
-                if (response.data.start == 0) {
-
-                    $scope.ParentIDData = response.data.data;
-                } else {
-
-                }
-            }, function errorCallback(response) {
-                console.log(JSON.stringify(response))
-            });
-        }
- $scope.GetSelectParentID();
-
- 
-$scope.GetSelectMenuTableName = function () {
+$scope.GetSelectOtherTableName = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
@@ -172,7 +159,7 @@ $scope.GetSelectMenuTableName = function () {
 
                 if (response.data.start == 0) {
 
-                    $scope.MenuTableNameData = response.data.data;
+                    $scope.OtherTableNameData = response.data.data;
                 } else {
 
                 }
@@ -180,7 +167,7 @@ $scope.GetSelectMenuTableName = function () {
                 console.log(JSON.stringify(response))
             });
         }
- $scope.GetSelectMenuTableName();
+ $scope.GetSelectOtherTableName();
 
  
 	    var Id="";
@@ -196,7 +183,7 @@ $scope.GetSelectMenuTableName = function () {
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							       $scope.ParentID = $scope.Update.ParentID;       $scope.MenuTableName = $scope.Update.MenuTableName;
+							       $scope.OtherTableName = $scope.Update.OtherTableName;
                 } else {
                     alert( response.data.msg);
                 }

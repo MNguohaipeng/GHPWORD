@@ -91,15 +91,9 @@ namespace GHPWEB.Controllers
                     //FildName.TrimEnd(',');
                     #endregion
 
-                    if (TableName.ToLower().Contains("sys"))
-                    {
-                        Sql = string.Format("SELECT {1} FROM {0} where 1=1 ", TableName, FildName);
-                    }
-                    else
-                    {
+             
                         Sql = string.Format("SELECT {1} FROM {0} where Isdeleted='false' ", TableName, FildName);
-                    }
-
+            
 
                     if (!string.IsNullOrEmpty(Where))
                     {

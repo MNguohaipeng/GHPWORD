@@ -64,7 +64,7 @@
                 <label class="col-sm-2 control-label">其他表名</label>
                 <div class="col-sm-10">
               <input type="text" ng-hide="true"  name="OtherTableName" ng-model="Update.OtherTableName" />
-                    <select  class="form-control m-b"  ng-options="item.name as item.name for  item in OtherTableNameData" ng-model="Update.OtherTableName">
+                    <select  class="form-control m-b"  ng-options="item.TableName as item.TableName for  item in OtherTableNameData" ng-model="Update.OtherTableName">
                       </select>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                 <label class="col-sm-2 control-label">表名</label>
                 <div class="col-sm-10">
               <input type="text" ng-hide="true"  name="TableName" ng-model="Update.TableName" />
-                    <select  class="form-control m-b"  ng-options="item.name as item.name for  item in TableNameData" ng-model="Update.TableName">
+                    <select  class="form-control m-b"  ng-options="item.TableName as item.TableName for  item in TableNameData" ng-model="Update.TableName">
                       </select>
                 </div>
             </div>
@@ -192,7 +192,7 @@ $scope.GetSelectOtherTableName = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
-                data: { TableName: "sysobjects", Where: "xtype='u'", FildName: "name,name" }
+                data: { TableName: "AllTableInfo", Where: "", FildName: "TableName,TableName" }
             }).then(function successCallback(response) {
 
                 if (response.data.start == 0) {
@@ -212,7 +212,7 @@ $scope.GetSelectTableName = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
-                data: { TableName: "sysobjects", Where: "xtype='u'", FildName: "name,name" }
+                data: { TableName: "AllTableInfo", Where: "", FildName: "TableName,TableName" }
             }).then(function successCallback(response) {
 
                 if (response.data.start == 0) {

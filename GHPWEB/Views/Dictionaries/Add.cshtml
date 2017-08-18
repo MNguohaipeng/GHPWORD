@@ -11,68 +11,51 @@
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
  
   <header class="panel-heading font-bold">
-                  Menu
+                  系统字典配置
                 </header>
 
 <div class="panel-body">
  
-  <form class="form-horizontal" method="POST" action="Save" id="MenuEditForm">    
+  <form class="form-horizontal" method="POST" action="Save" id="DictionariesEditForm">    
   <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
   <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">菜单名称</label>
+                      <label class="col-sm-2 control-label">键</label>
                       <div class="col-sm-10">
-                        <input type="text" name='MenuName' class="form-control" ng-model="Update.MenuName">
+                        <input type="text" name='Key' class="form-control" ng-model="Update.Key">
                    
                       </div>
                     </div>
 <div class="line line-dashed b-b line-lg pull-in"></div>
 <div class="form-group">
-                      <label class="col-sm-2 control-label">等级</label>
+                      <label class="col-sm-2 control-label">值</label>
                       <div class="col-sm-10">
-                        <input type="text" name='Level' class="form-control" ng-model="Update.Level">
+                        <input type="text" name='Value' class="form-control" ng-model="Update.Value">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">说明</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='Explain' class="form-control" ng-model="Update.Explain">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">备注</label>
+                      <div class="col-sm-10">
+                        <input type="text" name='Note' class="form-control" ng-model="Update.Note">
                    
                       </div>
                     </div>
 <div class="line line-dashed b-b line-lg pull-in"></div>   
  <div class="form-group">
-                <label class="col-sm-2 control-label">上级ID</label>
+                <label class="col-sm-2 control-label">计费方式</label>
                 <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="ParentID" ng-model="Update.ParentID" />
-                    <select  class="form-control m-b"  ng-options="item.Id as item.MenuName for  item in ParentIDData" ng-model="Update.ParentID">
-                      </select>
-                </div>
-            </div>
- <div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">地址</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Url' class="form-control" ng-model="Update.Url">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">类型</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Type' class="form-control" ng-model="Update.Type">
-                   
-                      </div>
-                    </div>
-
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">排序</label>
-                      <div class="col-sm-10">
-                        <input type="number" name='Order' class="form-control" ng-model="Update.Order">
-                   
-                      </div>
-                    </div><div class="line line-dashed b-b line-lg pull-in"></div>   
- <div class="form-group">
-                <label class="col-sm-2 control-label">表名</label>
-                <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="MenuTableName" ng-model="Update.MenuTableName" />
-                    <select  class="form-control m-b"  ng-options="item.TableName as item.TableName for  item in MenuTableNameData" ng-model="Update.MenuTableName">
+              <input type="text" ng-hide="true"  name="Type" ng-model="Update.Type" />
+                    <select  class="form-control m-b"  ng-options="item.Value as item._Explain for  item in TypeData" ng-model="Update.Type">
                       </select>
                 </div>
             </div>
@@ -89,20 +72,17 @@
 </section>
 
 <script>
-$('#MenuEditForm').validate({rules: {MenuName:{ 
-required:true ,
+$('#DictionariesEditForm').validate({rules: {Key:{ 
+required:true,
 },
-Level:{ 
-required:true ,
+Value:{ 
+required:true,
 },
-Url:{ 
-required:true ,
+Explain:{ 
+required:true,
 },
 Type:{ 
-required:true ,
-},
-Order:{ 
-required:true ,
+required:true,
 },
 }   }); 
  
@@ -143,16 +123,16 @@ required:true ,
               $scope.loading = false;
 	
 	 
-$scope.GetSelectParentID = function () {
+$scope.GetSelectType = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
-                data: { TableName: "Menu", Where: "", FildName: "Id,MenuName" }
+                data: { TableName: "Dictionaries", Where: "_Key='APP_ChargingMode'", FildName: "Value,_Explain" }
             }).then(function successCallback(response) {
 
                 if (response.data.start == 0) {
 
-                    $scope.ParentIDData = response.data.data;
+                    $scope.TypeData = response.data.data;
                 } else {
 
                 }
@@ -160,27 +140,7 @@ $scope.GetSelectParentID = function () {
                 console.log(JSON.stringify(response))
             });
         }
- $scope.GetSelectParentID();
-
- 
-$scope.GetSelectMenuTableName = function () {
-            $http({
-                method: 'POST',
-                url: '/Home/GetSelectData',
-                data: { TableName: "AllTableInfo", Where: "", FildName: "TableName,TableName" }
-            }).then(function successCallback(response) {
-
-                if (response.data.start == 0) {
-
-                    $scope.MenuTableNameData = response.data.data;
-                } else {
-
-                }
-            }, function errorCallback(response) {
-                console.log(JSON.stringify(response))
-            });
-        }
- $scope.GetSelectMenuTableName();
+ $scope.GetSelectType();
 
  
 	    var Id="";
@@ -196,7 +156,7 @@ $scope.GetSelectMenuTableName = function () {
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							       $scope.ParentID = $scope.Update.ParentID;       $scope.MenuTableName = $scope.Update.MenuTableName;
+							       $scope.Type = $scope.Update.Type;
                 } else {
                     alert( response.data.msg);
                 }

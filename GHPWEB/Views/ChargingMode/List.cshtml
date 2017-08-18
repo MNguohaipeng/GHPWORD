@@ -1,0 +1,239 @@
+﻿ 
+ @{
+ Layout = "~/Views/Shared/_Layout_Body.cshtml";
+ }
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<script src="~/Template/js/bootstrap.js"></script>
+
+<script src="~/Scripts/angular.js"></script>
+
+
+<section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
+  <header class="panel-heading font-bold">
+                  ChargingMode
+  </header>
+
+    <div id="GHPTABLE">
+        <div class="row wrapper">
+            <div class="col-sm-5 m-b-xs">
+                <select class="input-sm form-control input-s-sm inline v-middle">
+                    <option value="0">Bulk action</option>
+                    <option value="1">Delete selected</option>
+                    <option value="2">Bulk edit</option>
+                    <option value="3">Export</option>
+                </select>
+                <button class="btn btn-sm btn-default">Apply</button>
+            </div>
+            <div class="col-sm-4 m-b-xs">
+                <div class="btn-group" data-toggle="buttons">
+                    <button ng-repeat="x in buttonlist" class="{{x.Class}}" style="display:inline" ng-click="fun(x.Click)">{{x.ButtonName}}</button>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="input-group">
+                    <input type="text" class="input-sm form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-sm btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+		<div class="table-responsive">
+            <table class="table table-striped b-t b-light"></table>
+        </div>
+    </div>
+
+    <footer class="panel-footer">
+        <div class="row">
+          <div class="col-sm-4 hidden-xs">
+                <select class="input-sm form-control input-s-sm inline v-middle" ng-model="SelectedSize" ng-options="Size for Size  in PageSizes" ng-change="LoadData(1)"></select>
+            </div>
+            <div class="col-sm-4 text-center">
+                <small class="text-muted inline m-t-sm m-b-sm">showing 20-30 of 50 items</small>
+            </div>
+                 <div class="col-sm-4 text-right text-center-xs">
+                <ul class="pagination pagination-sm m-t-none m-b-none pageindexlist">
+                    <li><a href="#" ng-click="FenYe(0,0,'front')"><i class="fa fa-chevron-left"></i></a></li>
+                    <li ng-repeat="x in PageIndex" indexfs="{{x.index}}">
+                        <a href="javascript:;" ng-click="FenYe(x.index,'')">{{x.index}}</a>
+                    </li>
+                    <li><a href="#" ng-click="FenYe(0,0,'after')"><i class="fa fa-chevron-right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+	    <div class="loader" ng-if="loading">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+</section>
+<script src="~/Scripts/bootstrap-ghptable.js"></script>
+
+
+<script>
+ 
+ 
+ 
+	var tableoption = {
+        thead: [{name:'',value:'Id',IsChack:true,},{name:'单位',value:'Company',IsOrder:false,},{name:'数量',value:'Number',IsOrder:false,}],
+        tableid: "table"
+    }
+    var pages = 0;
+    var sizes = 0;
+
+    LoadTable(tableoption);
+    var app = angular.module("GHPAPP", []);
+    app.controller("GHPCtrl", function ($scope, $http) {
+
+        $scope.PageSizes = [5, 10, 20, 50, 100];
+
+        $scope.CheckValue = [];
+
+        $scope.SelectedSize = 10;
+
+        $scope.ChangeCheck = function (type) {
+            $scope.CheckValue = [];
+            $("input[name='Id']").each(function (index, item) {
+                if ($(item).is(':checked')) {
+                    $scope.CheckValue.push($(item).attr("value"));
+                } else {
+                    if (type != "All") {
+
+                        $(".checkboxAll").attr("checked", false);
+                    }
+                }
+            })
+
+        }
+
+        $scope.getbutton = function () {
+            // 简单的 GET 请求，可以改为 POST
+            $http({
+                method: 'POST',
+                url: 'GetButton',
+                data: { MenuName: "ChargingMode" }
+            }).then(function successCallback(response) {
+                if (response.data.start == 1) {
+
+                    $scope.buttonlist = response.data.data;
+                } else {
+                    alert(response.data.msg);
+                }
+            }, function errorCallback(response) {
+                // 请求失败执行代码
+            });
+        }
+
+        $scope.fun = function (type) {
+            switch (type) {
+                case "0":
+                    location = "Add";
+                    break;
+                case "1":
+                    $scope.Update();
+                    break;
+                case "2":
+                    $scope.Delete();
+                    break;
+                default:
+            }
+
+        }
+
+        $scope.FenYe = function (page, type) {
+
+            if (type == "front") {
+                if (pages > 1) {
+                    pages--;
+                }
+            } else if (type == "after") {
+                if (pages < $scope.PageIndex.length) {
+                    pages++;
+                }
+            } else {
+                pages = page;
+                sizes = $scope.SelectedSize;
+            }
+
+            $scope.LoadData(pages, sizes);
+
+            $(".pageindexlist li").each(function (index, item) {
+
+                console.log($(item).attr("indexfs") == pages)
+                if ($(item).attr("indexfs") == pages) {
+
+                    $(item).css("background-color", "#303437")
+                }
+            })
+
+        }
+
+        $scope.LoadData = function (page) {
+
+            $http({
+                method: 'POST',
+                url: "List",
+                data: { pageIndex: page, pageSize: $scope.SelectedSize }
+            }).then(function successCallback(response) {
+                var totalPage = 0;
+                if (response.data.start == 0) {
+                    $scope.tablelist = response.data.data;
+                    totalPage = (response.data.totalCount) / $scope.SelectedSize;
+                    if ((response.data.totalCount) % $scope.SelectedSize > 0) {
+                        totalPage++;
+                    }
+                    var i = 1;
+                    var pi = [];
+                    while (i <= totalPage) {
+                        pi.push({ index: i, pagesize: $scope.SelectedSize });
+
+
+                        i++;
+                    }
+                    $scope.PageIndex = pi;
+                }
+            }, function errorCallback(response) {
+                // 请求失败执行代码
+            });
+        }
+
+        $scope.getbutton();
+
+        $scope.LoadData(1);
+
+        $scope.Update = function () {
+            if ($scope.CheckValue.length > 1) {
+                alert("同时只能修改一条数据")
+            } else if ($scope.CheckValue.length <= 0) {
+                alert("请选择要修改的数据")
+            } else {
+                location = "Add?#Id=" + $scope.CheckValue[0];
+            }
+
+        }
+
+        $scope.Delete = function () {
+
+            if (!confirm("是否确认删除当前选中数据？"))
+                return;
+
+            $http({
+                method: 'POST',
+                url: "Delete",
+                data: { Ids: angular.toJson($scope.CheckValue)}
+            }).then(function successCallback(response) {
+                $scope.LoadData(pages);
+            }, function errorCallback(response) {
+                // 请求失败执行代码
+            });
+        }
+    })
+ 
+</script>

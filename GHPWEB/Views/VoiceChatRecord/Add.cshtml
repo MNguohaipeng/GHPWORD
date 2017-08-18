@@ -11,72 +11,48 @@
 <section class="panel panel-default" ng-app="GHPAPP" ng-controller="GHPCtrl">
  
   <header class="panel-heading font-bold">
-                  Menu
+                  语音聊天记录
                 </header>
 
 <div class="panel-body">
  
-  <form class="form-horizontal" method="POST" action="Save" id="MenuEditForm">    
+  <form class="form-horizontal" method="POST" action="Save" id="VoiceChatRecordEditForm">    
   <input type="text" ng-hide="true" name="Id" ng-model="Update.Id"/>
-  <div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">菜单名称</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='MenuName' class="form-control" ng-model="Update.MenuName">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">等级</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Level' class="form-control" ng-model="Update.Level">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>   
+  <div class="line line-dashed b-b line-lg pull-in"></div>   
  <div class="form-group">
-                <label class="col-sm-2 control-label">上级ID</label>
+                <label class="col-sm-2 control-label">用户ID</label>
                 <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="ParentID" ng-model="Update.ParentID" />
-                    <select  class="form-control m-b"  ng-options="item.Id as item.MenuName for  item in ParentIDData" ng-model="Update.ParentID">
+              <input type="text" ng-hide="true"  name="UserId" ng-model="Update.UserId" />
+                    <select  class="form-control m-b"  ng-options="item.Id as item.LoginName for  item in UserIdData" ng-model="Update.UserId">
                       </select>
                 </div>
             </div>
- <div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">地址</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Url' class="form-control" ng-model="Update.Url">
-                   
-                      </div>
-                    </div>
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">类型</label>
-                      <div class="col-sm-10">
-                        <input type="text" name='Type' class="form-control" ng-model="Update.Type">
-                   
-                      </div>
-                    </div>
-
-<div class="line line-dashed b-b line-lg pull-in"></div>
-<div class="form-group">
-                      <label class="col-sm-2 control-label">排序</label>
-                      <div class="col-sm-10">
-                        <input type="number" name='Order' class="form-control" ng-model="Update.Order">
-                   
-                      </div>
-                    </div><div class="line line-dashed b-b line-lg pull-in"></div>   
+ <div class="line line-dashed b-b line-lg pull-in"></div>   
  <div class="form-group">
-                <label class="col-sm-2 control-label">表名</label>
+                <label class="col-sm-2 control-label">连接用户ID</label>
                 <div class="col-sm-10">
-              <input type="text" ng-hide="true"  name="MenuTableName" ng-model="Update.MenuTableName" />
-                    <select  class="form-control m-b"  ng-options="item.TableName as item.TableName for  item in MenuTableNameData" ng-model="Update.MenuTableName">
+              <input type="text" ng-hide="true"  name="LinkUserId" ng-model="Update.LinkUserId" />
+                    <select  class="form-control m-b"  ng-options="item.Id as item.LoginName for  item in LinkUserIdData" ng-model="Update.LinkUserId">
                       </select>
                 </div>
             </div>
  
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">时常</label>
+                      <div class="col-sm-10">
+                        <input type="number" name='Often' class="form-control" ng-model="Update.Often">
+                   
+                      </div>
+                    </div>
+<div class="line line-dashed b-b line-lg pull-in"></div>
+<div class="form-group">
+                      <label class="col-sm-2 control-label">产生费用</label>
+                      <div class="col-sm-10">
+                        <input type="number" name='GenerateExpenses' class="form-control" ng-model="Update.GenerateExpenses">
+                   
+                      </div>
+                    </div>
 
   <div class="text-center">
   <button class="btn btn-s-md btn-default" type="submit">保存</button>
@@ -89,20 +65,11 @@
 </section>
 
 <script>
-$('#MenuEditForm').validate({rules: {MenuName:{ 
-required:true ,
+$('#VoiceChatRecordEditForm').validate({rules: {Often:{ 
+required:true,
 },
-Level:{ 
-required:true ,
-},
-Url:{ 
-required:true ,
-},
-Type:{ 
-required:true ,
-},
-Order:{ 
-required:true ,
+GenerateExpenses:{ 
+required:true,
 },
 }   }); 
  
@@ -143,16 +110,16 @@ required:true ,
               $scope.loading = false;
 	
 	 
-$scope.GetSelectParentID = function () {
+$scope.GetSelectUserId = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
-                data: { TableName: "Menu", Where: "", FildName: "Id,MenuName" }
+                data: { TableName: "Users", Where: "", FildName: "Id,LoginName" }
             }).then(function successCallback(response) {
 
                 if (response.data.start == 0) {
 
-                    $scope.ParentIDData = response.data.data;
+                    $scope.UserIdData = response.data.data;
                 } else {
 
                 }
@@ -160,19 +127,19 @@ $scope.GetSelectParentID = function () {
                 console.log(JSON.stringify(response))
             });
         }
- $scope.GetSelectParentID();
+ $scope.GetSelectUserId();
 
  
-$scope.GetSelectMenuTableName = function () {
+$scope.GetSelectLinkUserId = function () {
             $http({
                 method: 'POST',
                 url: '/Home/GetSelectData',
-                data: { TableName: "AllTableInfo", Where: "", FildName: "TableName,TableName" }
+                data: { TableName: "Users", Where: "", FildName: "Id,LoginName" }
             }).then(function successCallback(response) {
 
                 if (response.data.start == 0) {
 
-                    $scope.MenuTableNameData = response.data.data;
+                    $scope.LinkUserIdData = response.data.data;
                 } else {
 
                 }
@@ -180,7 +147,7 @@ $scope.GetSelectMenuTableName = function () {
                 console.log(JSON.stringify(response))
             });
         }
- $scope.GetSelectMenuTableName();
+ $scope.GetSelectLinkUserId();
 
  
 	    var Id="";
@@ -196,7 +163,7 @@ $scope.GetSelectMenuTableName = function () {
            }).then(function successCallback(response) {
                 if (response.data.start == 0) {
                     $scope.Update = response.data.data;
-							       $scope.ParentID = $scope.Update.ParentID;       $scope.MenuTableName = $scope.Update.MenuTableName;
+							       $scope.UserId = $scope.Update.UserId;       $scope.LinkUserId = $scope.Update.LinkUserId;
                 } else {
                     alert( response.data.msg);
                 }
